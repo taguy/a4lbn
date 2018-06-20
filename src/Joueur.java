@@ -104,7 +104,7 @@ public class Joueur{
 		//		codeRetour = 3 : le déplacemment ne respecte pas les règles
 		// 		codeRetour = 4 : le pion ciblée est a la posfin
 		// 		codeRetour = 5 : le pion ciblée est au même joueur que le pion actuelle
-
+ 
 		if(posActX == posDestX && posActY == posDestY){
 				System.out.println("move() : La posAct est la même que la posDest <!>");
 				codeRetour = 1;
@@ -135,7 +135,7 @@ public class Joueur{
 				posDestZ = Integer.parseInt(Utilitaire.reponseUtilisateur(message, 1, 2, 1));
 			}
 
-			if(posDestZ == 1 || liberer){
+			if(liberer || posDestZ == 1){
 				//methode brice
 				if(dest == null){
 					//System.out.println("passage dans liberer");

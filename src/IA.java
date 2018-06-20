@@ -33,6 +33,7 @@ public class IA extends Joueur{
 			for (int j = -1; j <= 1; j++) {
 				nouvelleposDest[0] = posAct[0]+i;
 				nouvelleposDest[1] = posAct[1]+j;
+System.out.println(nouvelleposDest[1]);
 				if (this.verifDeplacement(posAct, nouvelleposDest, new Random().nextBoolean()) == 0) {
 					listePosDest.add(nouvelleposDest);
 				}
