@@ -33,7 +33,7 @@ public class Launcher{
 	public static void menu() {
 		System.out.println();
 
-		if (Utilitaire.reponseUtilisateur("\nBienvenue dans le jeu Arcanor !\n Tapez '1' si vous voulez jouer en mode graphique, Tapez '2' sinon\n puis tapez Entree\n", 1, 2, 1).equals("1")) {
+		if (Utilitaire.reponseUtilisateur("\nBienvenue dans le jeu projetZ !\n Tapez '1' si vous voulez jouer en mode graphique, Tapez '2' sinon\n puis tapez Entree\n", 1, 2, 1).equals("1")) {
 			graphique = true;
 		}
 
