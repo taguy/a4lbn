@@ -173,7 +173,7 @@ public class Joueur{
 	* @param posDestY : la pos destination à vérifier en Y
 	* @return ret : vrai si la position est bonne ou faux si la position n'est pas bonne
 	*/
-	private boolean verifPosDestination(int posActX, int posActY , int posDestX, int posDestY){
+	boolean verifPosDestination(int posActX, int posActY , int posDestX, int posDestY){
 		boolean ret = false;
 		if((posDestX == posActX && posDestY == posActY-1)||(posDestX == posActX && posDestY == posActY+1) // Bas Haut
 		||(posDestX == posActX-1 && posDestY == posActY)||(posDestX == posActX+1 && posDestY == posActY) //Gauche droite

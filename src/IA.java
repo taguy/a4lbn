@@ -37,7 +37,7 @@ public class IA extends Joueur{
 					nouvelleposDest[1] = posAct[1]+j;
 				}
 
-				if (this.verifDeplacement(posAct, nouvelleposDest) == 0) {
+				if (this.verifPosDestination(posAct[0], posAct[1], nouvelleposDest[0], nouvelleposDest[1])) {
 					listePosDest.add(nouvelleposDest);
 				}
 			}

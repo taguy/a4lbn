@@ -263,9 +263,8 @@ import utili.Utilitaire;
                         this.current = joueurB;
                     } else {
                         this.current = joueurA;
+                        this.tours++;
                     }
-
-                    this.tours++;
                 }
 
                 this.posFin();
