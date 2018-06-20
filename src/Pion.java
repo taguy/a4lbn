@@ -37,7 +37,7 @@ public class Pion {
    * L'accesseur du contenu
    * @return la classe Pion comme contenu
    */
-  Pion getContenu(){
+  public Pion getContenu(){
 	   return this.contenu;
   }
 
@@ -45,7 +45,7 @@ public class Pion {
    * L'accesseur du taille
    * @return le int comme contenu
    */
-  int getTaille(){
+  public int getTaille(){
 	   return this.taille;
   }
 
@@ -70,7 +70,7 @@ public class Pion {
    * Retourne le joueur
    * @return le Joueur
    */
-  Joueur getJoueur(){
+  public Joueur getJoueur(){
 	  return this.leJoueur;
   }
 
@@ -86,7 +86,7 @@ public class Pion {
    * recupeère de l'attribut posFin
    * @return ret : boolean
    */
-  boolean getPosFin(){
+  public boolean getPosFin(){
     return this.posFin;
   }
 

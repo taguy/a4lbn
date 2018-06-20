@@ -119,7 +119,7 @@ import utili.Utilitaire;
     * Accesseur du 1er joueur
     * @return la classe Joueur qui represente le 1er joueur
     */
-   Joueur getJoueurA(){
+   public Joueur getJoueurA(){
        return this.joueurA;
    }
 
@@ -128,7 +128,7 @@ import utili.Utilitaire;
     * Accesseur du 2e joueur
     * @return la classe Joueur qui represente le 2e joueur
     */
-   Joueur getJoueurB(){
+   public Joueur getJoueurB(){
        return this.joueurB;
    }
 
@@ -137,7 +137,7 @@ import utili.Utilitaire;
     * Accesseur du nombre de tours
     * @return le int du nombre de tours
     */
-   int getTours(){
+   public int getTours(){
        return this.tours;
    }
 
@@ -170,7 +170,7 @@ import utili.Utilitaire;
 	 * Donne le nom de la partie
 	 * @return le nom de la partie
 	 */
-	String getNom(){
+	public String getNom(){
 		return this.nom;
 	}
 
@@ -178,7 +178,7 @@ import utili.Utilitaire;
 	 * Retourne le score du joueur A
 	 * @return le score du joueur A
 	 */
-	int getScoreA(){
+	public int getScoreA(){
 		return this.scoreA;
 	}
 
@@ -186,7 +186,7 @@ import utili.Utilitaire;
 	 * Retourne le score du joueur B
 	 * @return le score du joueur B
 	 */
-	int getScoreB(){
+	public int getScoreB(){
 		return this.scoreB;
 	}
 
@@ -271,7 +271,7 @@ import utili.Utilitaire;
             } else {
                 this.current = joueurA;
             }
-            
+
             System.out.println(this);
             System.out.println(this.current.getNom()+" a gagné");
 	  }

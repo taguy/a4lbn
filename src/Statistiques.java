@@ -70,7 +70,7 @@ public class Statistiques{
 	 * Récupère le nombre de parties jouées par le joueur
 	 * @return le nombre de parties jouées
 	 */
-	 int getNbParties(){
+	 public int getNbParties(){
 		return this.nbParties;
 	}
 
@@ -78,7 +78,7 @@ public class Statistiques{
 	 * Récupère le nombre de parties gagnées par le joueur
 	 * @return le nombre de parties gagnées
 	 */
-	 int getNbVictoires(){
+	 public int getNbVictoires(){
 		return this.nbVictoires;
 	}
 
@@ -86,7 +86,7 @@ public class Statistiques{
 	 * Récupère le nombre de pions mangés par le joueur
 	 * @return le nombre de pions mangés
 	 */
-	 int getNbPionsMange(){
+	 public int getNbPionsMange(){
 		return this.nbPionsMange;
 	}
 
@@ -94,7 +94,7 @@ public class Statistiques{
 	 * Récupère le temps de jeu total du joueur
 	 * @return le temps de jeu total du joueur
 	 */
-	 Double getNbTempsDeJeuTotal(){
+	 public double getNbTempsDeJeuTotal(){
 		return this.tempsDeJeuTotal;
 	}
 }

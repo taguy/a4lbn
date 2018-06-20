@@ -33,7 +33,7 @@ public class IA extends Joueur{
 			for (int j = -1; j <= 1; j++) {
 				nouvelleposDest[0] = posAct[0]+i;
 				nouvelleposDest[1] = posAct[1]+j;
-				if (this.verifDeplacement(posAct, nouvelleposDest) == 0) {
+				if (this.verifDeplacement(posAct, nouvelleposDest, new Random().nextBoolean()) == 0) {
 					listePosDest.add(nouvelleposDest);
 				}
 			}
@@ -58,7 +58,8 @@ public class IA extends Joueur{
 
 			int j = 0;
 			while (j < 7 && nb < 12) {
-				if (this.getDamier()[i][j].getJoueur() == this) {
+//System.out.println(this.getDamier()[]);
+				if (this.getDamier()[i][j] != null && this.getDamier()[i][j].getJoueur() == this) {
 					posAct[0] = i;
 					posAct[1] = j;
 

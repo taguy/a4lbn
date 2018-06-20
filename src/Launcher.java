@@ -85,37 +85,45 @@ System.out.println(lesParties.size());
 		Scanner in = new Scanner(System.in);
 		String reponse = null;
 
-		System.out.println("\n\n");
+		do {
+			System.out.println("\n\n");
 
-		for (int i = 0; i < lesJoueurs.size(); i++) {
-			System.out.println(i + " " + lesJoueurs.get(i).getNom());
-		}
-
-		System.out.println("\n" + lesJoueurs.size() + " Nouveau Joueur");
-		System.out.println(lesJoueurs.size()+1 + " Nouvelle IA\n");
-
-
-		if (reponse.equals(lesJoueurs.size()+"")) {
-			System.out.println("\nEntrez votre nom du joueur\n puis tapez Entree\n");
-			reponse = in.nextLine();
-			if (reponse != null) {
-				ret = new Joueur(reponse);
-			} else {
-				System.out.println("reponse nulle");
+			for (int i = 0; i < lesJoueurs.size(); i++) {
+				System.out.println(i + " " + lesJoueurs.get(i).getNom());
 			}
-		} else if (reponse.equals((lesJoueurs.size()+1)+"")) {
-			System.out.println("\nEntrez votre nom de l'IA\n puis tapez Entree\n");
-			reponse = in.nextLine();
 
-			if (reponse != null) {
-					ret = new IA(reponse);
+			System.out.println("\n" + lesJoueurs.size() + " Nouveau Joueur");
+			System.out.println(lesJoueurs.size()+1 + " Nouvelle IA\n");
+
+			reponse = Utilitaire.reponseUtilisateur("\nEntrez le numero du joueur voulu\n puis tapez Entree\n",0, (lesJoueurs.size()+1), ((lesJoueurs.size()+1)+"").length());
+
+			if (reponse.equals(lesJoueurs.size()+"")) {
+				System.out.println("\nEntrez votre nom du joueur\n puis tapez Entree\n");
+				reponse = in.nextLine();
+				if (reponse != null && reponse.length() > 1) {
+					ret = new Joueur(reponse);
+				} else {
+					System.out.println("reponse nulle ou trop petite");
+
+					ret = null;
+				}
+			} else if (reponse.equals((lesJoueurs.size()+1)+"")) {
+				System.out.println("\nEntrez votre nom de l'IA\n puis tapez Entree\n");
+				reponse = in.nextLine();
+
+				if (reponse != null && reponse.length() > 1) {
+						ret = new IA(reponse);
+				} else {
+						System.out.println("reponse nulle ou trop petite");
+
+						ret = null;
+				}
 			} else {
-					System.out.println("reponse nulle");
+				ret = lesJoueurs.get(Integer.parseInt(reponse));
+				lesJoueurs.remove(Integer.parseInt(reponse));
 			}
-		} else {
-			ret = lesJoueurs.get(Integer.parseInt(reponse));
-			lesJoueurs.remove(Integer.parseInt(reponse));
-		}
+
+		} while (ret == null);
 
 		return ret;
 	}

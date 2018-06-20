@@ -38,14 +38,14 @@ public class Joueur{
 	 * Getter du nom du joueur
 	 * @return le nom du joueur
 	 */
-	String getNom(){
+	public String getNom(){
 		return this.nom;
 	}
 	/**
 	 * Sauvegarde les attributs du joueurs pour qu'ils
 	 * puissent être réutilisés plus tard
 	 */
-	void sauvJoueur(){
+	void sauveJoueur(){
 		try{
 			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(SAUVJOUEURS))); //écriture du nom du joueur dans un fichier txt
 			out.println(this.nom);
@@ -70,11 +70,9 @@ public class Joueur{
 	 * Retourne le damier lié au joueur
 	 *@return le damier
 	 */
-	Pion[][] getDamier(){
+	public Pion[][] getDamier(){
 		return this.damier;
 	}
-
-
 
 	/**
 	 * vérifie l'etat du damier pour informer la methodes deplacer
@@ -82,7 +80,17 @@ public class Joueur{
 	 * @param posDest - tableau correspondant à la position de destination du pion
 	 * @return un numero d'erreur si erreur il y a, 0 sinon
 	 */
-	 int verifDeplacement(int[] valPosAct, int [] valPosDest){
+	 int verifDeplacement(int[] valPosAct, int [] valPosDest) {
+		 return this.verifDeplacement(valPosAct, valPosDest, false);
+	 }
+
+	/**
+	 * vérifie l'etat du damier pour informer la methodes deplacer
+	 * @param posAct - tableau correspondant à la position actuelle du pion
+	 * @param posDest - tableau correspondant à la position de destination du pion
+	 * @return un numero d'erreur si erreur il y a, 0 sinon
+	 */
+	 int verifDeplacement(int[] valPosAct, int [] valPosDest, boolean liberer){
 		 int posActX = valPosAct[0];
 		 int posActY = valPosAct[1];
 		 int posDestX = valPosDest[0];
@@ -127,7 +135,7 @@ public class Joueur{
 				posDestZ = Integer.parseInt(Utilitaire.reponseUtilisateur(message, 1, 2, 1));
 			}
 
-			if(posDestZ == 1){
+			if(posDestZ == 1 || liberer){
 				//methode brice
 				if(dest == null){
 					//System.out.println("passage dans liberer");
