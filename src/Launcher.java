@@ -45,7 +45,11 @@ public class Launcher{
 			if (Utilitaire.reponseUtilisateur("\nTapez '1' si vous voulez creer une partie, Tapez '2' si vous voulez charger une partie\n puis tapez Entree\n", 1, 2, 1).equals("1")) {
 				createPartie();
 			} else {
-				String reponse = Utilitaire.reponseUtilisateur("\nEntrez le numero du joueur voulu\n puis tapez Entree\n",0, (lesParties.size()), (lesParties.size()+"").length());
+				for (int i = 0; i < lesParties.size(); i++) {
+					System.out.println(i + " " + lesParties.get(i).getJoueurA().getNom() + " " + lesParties.get(i).getJoueurB().getNom() + " " + lesParties.get(i).getNom() + " " + lesParties.get(i).getTours() + " " + lesParties.get(i).getScoreA() + " " + lesParties.get(i).getScoreB());
+				}
+System.out.println(lesParties.size());
+				String reponse = Utilitaire.reponseUtilisateur("\nEntrez le numero de la partie voulue\n puis tapez Entree\n",0, (lesParties.size()-1), ((lesParties.size()-1)+"").length());
 				lesParties.get(Integer.parseInt(reponse));
 			}
 		}
