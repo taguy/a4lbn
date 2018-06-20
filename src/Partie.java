@@ -145,7 +145,7 @@ import utili.Utilitaire;
     * Accesseur du damier
     * @return le damier
     */
-   Pion[][] getDamier(){
+   public Pion[][] getDamier(){
        return this.damier;
    }
 
@@ -236,24 +236,29 @@ import utili.Utilitaire;
 	 */
 
 	void jouer(){
-        int[] posAct;
-        int[] posDest;
+        int[] posAct = new int[2];
+        int[] posDest = new int[2];
 
 
          do {
             System.out.println (this.current.getNom() + " Sensei a toi de jouer ! \ntapez 'exit' pour sortir");
 
             System.out.println(this);
-            if (this.current instanceof IA) {
-                 int[][] tab = this.current.auto();
-                 posAct = tab[0];
-                 posDest = tab[1];
-             } else {
-                 posAct = Utilitaire.stringToInt("Quelle est la position du pion a déplacer ?");
-                 posDest = Utilitaire.stringToInt("Quelle la position destination ?");
-             }
 
-                if (this.current.verifDeplacement(posAct,posDest) == 0) {
+            if (this.current instanceof IA) {
+                int[][] tab = this.current.auto();
+                posAct[0] = tab[0][0];
+                posAct[1] = tab[0][1];
+
+                posDest[0] = tab[1][0];
+                posDest[1] = tab[1][1];
+
+             } else {
+                posAct = Utilitaire.stringToInt("Quelle est la position du pion a déplacer ?");
+                posDest = Utilitaire.stringToInt("Quelle la position destination ?");
+            }
+
+            if (this.current.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean()) == 0) {
                     if (this.current == joueurA) {
                         this.current = joueurB;
                     } else {

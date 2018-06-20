@@ -27,14 +27,17 @@ public class IA extends Joueur{
 		int[] posAct = this.posAct();
 		int[] nouvelleposDest = new int[2];
 
-		ret[0] = posAct;
+		ret[0][0] = posAct[0];
+		ret[0][1] = posAct[1];
 
 		for (int i = -1; i <= 1; i++) {
 			for (int j = -1; j <= 1; j++) {
-				nouvelleposDest[0] = posAct[0]+i;
-				nouvelleposDest[1] = posAct[1]+j;
-System.out.println(nouvelleposDest[1]);
-				if (this.verifDeplacement(posAct, nouvelleposDest, new Random().nextBoolean()) == 0) {
+				if ((posAct[0]+i >= 0 && posAct[1]+j >= 0) && (posAct[0]+i <this.getDamier().length && posAct[1]+j < this.getDamier()[0].length)) {
+					nouvelleposDest[0] = posAct[0]+i;
+					nouvelleposDest[1] = posAct[1]+j;
+				}
+
+				if (this.verifDeplacement(posAct, nouvelleposDest) == 0) {
 					listePosDest.add(nouvelleposDest);
 				}
 			}
@@ -43,13 +46,16 @@ System.out.println(nouvelleposDest[1]);
 		int i = (int) (Math.random() * listePosDest.size());
 		posAct = listePosDest.get(i);
 
-		ret[1] = posAct;
+		ret[1][0] = posAct[0];
+		ret[1][1] = posAct[1];
 
 		return ret;
 	}
 
 
 	private int[] posAct() {
+		Pion[][] damier = this.getDamier();
+
 		ArrayList<int[]> listePosAct = new ArrayList<int[]>();
 		int[] posAct = new int[2];
 		int nb = 0;
@@ -60,12 +66,21 @@ System.out.println(nouvelleposDest[1]);
 			int j = 0;
 			while (j < 7 && nb < 12) {
 
-				if (this.getDamier()[i][j] != null && this.getDamier()[i][j].getJoueur() == this) {
+				if (damier[i][j] != null && damier[i][j].getJoueur() == this) {
 					posAct[0] = i;
 					posAct[1] = j;
 
 					listePosAct.add(posAct);
-					if (this.getDamier()[i][j].getContenu().getJoueur() == this) {
+					if (damier[i][j].getContenu() != null && damier[i][j].getContenu().getJoueur() == this) {
+						if (damier[i][j].getContenu().getContenu() != null && damier[i][j].getContenu().getContenu().getJoueur() == this) {
+							if (damier[i][j].getContenu().getContenu().getContenu() != null && damier[i][j].getContenu().getContenu().getContenu().getJoueur() == this) {
+
+								nb++;
+							}
+
+							nb++;
+						}
+
 						nb++;
 					}
 

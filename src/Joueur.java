@@ -104,33 +104,30 @@ public class Joueur{
 		//		codeRetour = 3 : le déplacemment ne respecte pas les règles
 		// 		codeRetour = 4 : le pion ciblée est a la posfin
 		// 		codeRetour = 5 : le pion ciblée est au même joueur que le pion actuelle
- 
+
 		if(posActX == posDestX && posActY == posDestY){
-				System.out.println("move() : La posAct est la même que la posDest <!>");
 				codeRetour = 1;
 		}else if(this.damier[posActX][posActY] == null || this.damier[posActX][posActY].getJoueur() != this){
-				System.out.println("move() : la posAct n'a pas de pion  ou  le pion n'appartient pas au joueur <!>");
 				codeRetour = 2;
 		}else if(!verifPosDestination(posActX, posActY , posDestX, posDestY)){
-			System.out.println("move(): la position de destination n est pas réalisable <!>");
 			codeRetour = 3;
 		}else if(this.damier[posDestX][posDestY] != null){
 			if(this.damier[posDestX][posDestY].getPosFin() == true){
-				System.out.println("Le pion de la position de destination n'est plus actif <!>");
 				codeRetour = 4;
 			}
 			if(this.damier[posActX][posActY].getJoueur() == this.damier[posDestX][posDestY].getJoueur()){
-				System.out.println("Il est interdit de manger ses pions <!>");
 				codeRetour = 5;
 			}
 		}else if(this.damier[posActX][posActY].getPosFin() == true){
-			System.out.println("Le pion de la position actuelle n'est plus actif <!>");
-			codeRetour = 4;
+			codeRetour = 7;
 
 		}
+
+		this.message(codeRetour);
 		Pion dest = this.damier[posDestX][posDestY];
 		if(codeRetour == 0){
-			if(dest == null && this.damier[posActX][posActY].getContenu() !=  null){
+			if((dest == null && this.damier[posActX][posActY].getContenu() !=  null) && !(this instanceof IA)){
+
 				String message = "\nTapez '1' si vous liberer le contenu, Tapez '2' si vous voulez glisser\n puis tapez Entree\n";
 				posDestZ = Integer.parseInt(Utilitaire.reponseUtilisateur(message, 1, 2, 1));
 			}
@@ -159,11 +156,13 @@ public class Joueur{
 					codeRetour = 0;
 				}
 				else{
-					System.out.println("Glissement impossible <!>");
-					codeRetour = 3;
+					codeRetour = 8;
 				}
 			}
 		}
+
+		this.message(codeRetour);
+
 		return codeRetour;
 	}
 	/**
@@ -267,4 +266,27 @@ public class Joueur{
 		int[][] test = null;
 		return test;
 	}
+
+	private void message (int codeRetour) {
+
+		if (!(this instanceof IA)) {
+			if (codeRetour == 1) {
+				System.out.println("move() : La posAct est la même que la posDest <!>");
+			} else if (codeRetour == 2) {
+				System.out.println("move() : la posAct n'a pas de pion  ou  le pion n'appartient pas au joueur <!>");
+			} else if (codeRetour == 3) {
+				System.out.println("move(): la position de destination n est pas réalisable <!>");
+			} else if (codeRetour == 4) {
+				System.out.println("Le pion de la position de destination n'est plus actif <!>");
+			} else if (codeRetour == 5) {
+				System.out.println("Il est interdit de manger ses pions <!>");
+			} else if (codeRetour == 7) {
+				System.out.println("Le pion de la position actuelle n'est plus actif <!>");
+			} else if (codeRetour == 8) {
+				System.out.println("Glissement impossible <!>");
+			}
+
+		}
+	}
+
 }
