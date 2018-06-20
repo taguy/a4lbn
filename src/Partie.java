@@ -1,4 +1,4 @@
-package arcanor;
+package projetZ;
 import java.io.*;
 import utili.Utilitaire;
 /**
@@ -9,23 +9,23 @@ import utili.Utilitaire;
  */
  public class Partie{
 
+     /** Le nombre de tours avant l'enregistrement */
    private int tours;
-   /** Le nombre de tours avant l'enregistrement */
 
-   private int scoreA;
    /** Le score du joueur n°1 */
+   private int scoreA;
 
-   private int scoreB;
    /** Le score fu joueur n°2 */
+   private int scoreB;
 
-   private String nom;
    /** Le nom de la partie */
+   private String nom;
 
-   private Joueur joueurA;
    /** Le joueur n°1 */
+   private Joueur joueurA;
 
-   private Joueur joueurB;
    /** Le joueur n°2 */
+   private Joueur joueurB;
 
    private Joueur current;
 
@@ -289,19 +289,51 @@ import utili.Utilitaire;
 	}
 
     public String toString(){
-        String ret = "Tours : " + this.tours + "\n" + this.joueurA.getNom() + " : " + this.scoreA + "\n" + this.joueurB.getNom() + " : "+this.scoreB + "\n  0    1    2    3    4    5    6    7    \n";
-        for(int i = 0; i < this.damier[0].length; i++){
-            for(int k = 0; k < this.damier.length; k++){
-                if (this.damier[k][i] == null) {
-                    ret += "|    ";
-                } else {
-                    ret += "|"+this.damier[k][i];
-                }
+      String ret = "Tours : " + this.tours + "\n" + this.joueurA.getNom() + " : " + this.scoreA + "\n" + this.joueurB.getNom() + " : "+this.scoreB + "\n  0    1    2    3    4    5    6    7    \n";
 
+      for(int i = 0; i < this.damier[0].length; i++){
+          for(int k = 0; k < this.damier.length; k++){
+              if (this.damier[k][i] == null) {
+                  ret += "|    ";
+              } else {
+                  ret += "|"+this.damier[k][i];
+              }
+          }
+          ret +="|  "+ i + "\n";
+      }
 
-            }
-            ret +="|  "+ i + "\n";
+      for(int y = 0; y < this.damier[0].length; y++){
+
+          for(int x = 0; x < this.damier.length; x++){
+
+              if (this.damier[x][y] != null){
+
+                  if (this.damier[x][y].getJoueur() == this.current){
+                      ret += "Pos: "+x+y+this.damier[x][y]+"(1er)";
+
+                      if (this.damier[x][y].getContenu() != null){
+                          ret += " -> "+this.damier[x][y].getContenu()+"(2e)";
+
+                          if (this.damier[x][y].getContenu().getContenu() != null){
+                              ret += " -> "+this.damier[x][y].getContenu().getContenu()+"(3e)";
+
+                              if (this.damier[x][y].getContenu().getContenu().getContenu() != null){
+                                  ret += " -> " + this.damier[x][y].getContenu().getContenu().getContenu()+"(4e)";
+
+                              }else{
+                                  ret += "\n";
+                              }
+                          }else{
+                              ret += "\n";
+                          }
+                      }else{
+                          ret += "\n";
+                      }
+                  }
+              }
+          }
         }
+
         return ret;
     }
  }
