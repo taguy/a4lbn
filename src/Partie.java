@@ -309,7 +309,7 @@ import utili.Utilitaire;
               if (this.damier[x][y] != null){
 
                   if (this.damier[x][y].getJoueur() == this.current){
-                      ret += "Pos: "+x+y+this.damier[x][y]+"(1er)";
+                      ret += this.damier[x][y]+"(1er)";
 
                       if (this.damier[x][y].getContenu() != null){
                           ret += " -> "+this.damier[x][y].getContenu()+"(2e)";

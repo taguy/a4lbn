@@ -58,7 +58,7 @@ public class IA extends Joueur{
 
 			int j = 0;
 			while (j < 7 && nb < 12) {
-//System.out.println(this.getDamier()[]);
+
 				if (this.getDamier()[i][j] != null && this.getDamier()[i][j].getJoueur() == this) {
 					posAct[0] = i;
 					posAct[1] = j;
