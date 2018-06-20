@@ -1,4 +1,4 @@
-package projetZ;
+package arcanor;
 import java.io.*;
 import utili.Utilitaire;
 /**
@@ -262,8 +262,17 @@ import utili.Utilitaire;
 
                     this.tours++;
                 }
+
                 this.posFin();
             } while (!this.endOfTheGame());
+
+            if (this.current == joueurA) {
+                this.current = joueurB;
+            } else {
+                this.current = joueurA;
+            }
+            
+            System.out.println(this);
             System.out.println(this.current.getNom()+" a gagné");
 	  }
 
