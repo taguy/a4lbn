@@ -1,9 +1,9 @@
-package arcanor;
+package projetZ;
 import java.util.*;
 import java.io.*;
 import utili.Utilitaire;
 /**
- * Classe lanceur qui lance le jeu Arcanor
+ * Classe lanceur qui lance le jeu projetZ
  * @author Brice Laigo
  * @author Lorenzo Gerardi
  * @author Nguyen Nguyen
@@ -45,6 +45,8 @@ public class Launcher{
 			if (Utilitaire.reponseUtilisateur("\nTapez '1' si vous voulez creer une partie, Tapez '2' si vous voulez charger une partie\n puis tapez Entree\n", 1, 2, 1).equals("1")) {
 				createPartie();
 			} else {
+				String reponse = Utilitaire.reponseUtilisateur("\nEntrez le numero du joueur voulu\n puis tapez Entree\n",0, (lesParties.size()), (lesParties.size()+"").length());
+				lesParties.get(Integer.parseInt(reponse));
 			}
 		}
 	}
@@ -88,29 +90,27 @@ public class Launcher{
 		System.out.println("\n" + lesJoueurs.size() + " Nouveau Joueur");
 		System.out.println(lesJoueurs.size()+1 + " Nouvelle IA\n");
 
-		reponse = Utilitaire.reponseUtilisateur("\nEntrez le numero du joueur voulu\n puis tapez Entree\n",0, (lesJoueurs.size()+1), ((lesJoueurs.size()+1)+"").length());
-		if (!reponse.equals("-50")) {
-			if (reponse.equals(lesJoueurs.size()+"")) {
-				System.out.println("\nEntrez votre nom du joueur\n puis tapez Entree\n");
-				reponse = in.nextLine();
-				if (reponse != null) {
-					ret = new Joueur(reponse);
-				} else {
-					System.out.println("reponse nulle");
-				}
 
-			} else if (reponse.equals((lesJoueurs.size()+1)+"")) {
-				System.out.println("\nEntrez votre nom de l'IA\n puis tapez Entree\n");
-				reponse = in.nextLine();
-				if (reponse != null) {
-					ret = new IA(reponse);
-				} else {
-					System.out.println("reponse nulle");
-				}
+		if (reponse.equals(lesJoueurs.size()+"")) {
+			System.out.println("\nEntrez votre nom du joueur\n puis tapez Entree\n");
+			reponse = in.nextLine();
+			if (reponse != null) {
+				ret = new Joueur(reponse);
 			} else {
-				ret = lesJoueurs.get(Integer.parseInt(reponse));
-				lesJoueurs.remove(Integer.parseInt(reponse));
+				System.out.println("reponse nulle");
 			}
+		} else if (reponse.equals((lesJoueurs.size()+1)+"")) {
+			System.out.println("\nEntrez votre nom de l'IA\n puis tapez Entree\n");
+			reponse = in.nextLine();
+
+			if (reponse != null) {
+					ret = new IA(reponse);
+			} else {
+					System.out.println("reponse nulle");
+			}
+		} else {
+			ret = lesJoueurs.get(Integer.parseInt(reponse));
+			lesJoueurs.remove(Integer.parseInt(reponse));
 		}
 
 		return ret;

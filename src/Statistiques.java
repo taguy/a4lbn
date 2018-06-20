@@ -1,4 +1,4 @@
-package arcanor;
+package projetZ;
 /**
  * Classe statistiques qui regroupe toutes les statistiques
  * d'un joueur durant son temps de jeu

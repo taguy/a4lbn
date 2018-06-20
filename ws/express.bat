@@ -1,4 +1,4 @@
-javac -d ..\class ..\src\ter\*.java
+javac -d ..\class ..\src\*.java
 
 pause
 

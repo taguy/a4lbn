@@ -1,4 +1,4 @@
-package arcanor;
+package projetZ;
 
 import java.io.FileWriter; //importation pour la méthode savejoueur
 import java.io.PrintWriter;

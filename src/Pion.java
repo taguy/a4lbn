@@ -1,5 +1,5 @@
 
-package arcanor;
+package projetZ;
 /**
  * Classe de la modelisation d'un pion
  * @author L. GERARDI

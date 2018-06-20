@@ -1,4 +1,4 @@
-package arcanor;
+package projetZ;
 /**
  * Classe de l'Intelligence Artificielle qui joueras automatiquement
  * @author J. BAUTISTA
