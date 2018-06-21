@@ -36,6 +36,10 @@ import utili.Utilitaire;
 
     private final int SCOREMAX = 12;
 
+    private Statistiques statsJoueurA;
+
+    private Statistiques tatsJoueurA;
+
     //private PlateauDeJeu plateau;
 
    /**
@@ -246,22 +250,24 @@ import utili.Utilitaire;
             if (posAct[0] == -1 || posDest[0] == -1) {
                 break;
             }
+
             if (this.current instanceof IA) {
                 tmp = this.current.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
             }else {
                 tmp = this.current.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
             }
+
             if (tmp == 0) {
-                    if (this.current == joueurA) {
-                        this.current = joueurB;
-                    } else {
-                        this.current = joueurA;
-                        this.tours++;
-                    }
+                if (this.current == joueurA) {
+                    this.current = joueurB;
+                } else {
+                    this.current = joueurA;
+                    this.tours++;
                 }
+            }
 
                 this.posFin();
-            } while (!this.endOfTheGame());
+        } while (!this.endOfTheGame());
 
             if (posAct[0] != -1 && posDest[0] != -1) {
                 if (this.current == joueurA) {

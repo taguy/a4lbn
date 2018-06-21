@@ -17,6 +17,8 @@ public class Launcher{
 	/** Tous les joueurs enregistrés */
 	private static ArrayList<Joueur> lesJoueurs;
 
+	private static ArrayList<Statistiques> lesStats;
+
 	public static void main(String[] args){
 		menu();
 		scenario();
@@ -47,7 +49,7 @@ public class Launcher{
 		}
 	}
 
-	/**
+	/**init
 	* Créé la partie et charge les joueurs
 	*/
    private static void createPartie() {
@@ -74,7 +76,7 @@ public class Launcher{
 	public static void scenario(){
         lesParties.get(lesParties.size()-1).jouer();
 
-		if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder, 2 sinon", 1, 2, 1).equals(2)) {
+		if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder, 2 sinon", 1, 2, 1).equals(1)) {
 			lesParties.remove(lesParties.size()-1);
 
 			lesJoueurs.remove(lesJoueurs.size()-1);
@@ -163,10 +165,13 @@ public class Launcher{
 
 	private static void init() {
 		lesParties = new ArrayList<Partie>(0);
-		Sauvegarde.initializeLesParties(lesParties);
+		Sauvegarde.initLesParties(lesParties);
 
 		lesJoueurs = new ArrayList<Joueur>(0);
-		Sauvegarde.initializeLesJoueurs(lesJoueurs);
+		Sauvegarde.initLesJoueurs(lesJoueurs);
+
+		lesJoueurs = new ArrayList<Joueur>(0);
+		Sauvegarde.initLesJoueurs(lesJoueurs);
 
 	}
 }

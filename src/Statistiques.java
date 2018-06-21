@@ -27,8 +27,33 @@ public class Statistiques{
 	 * @param joueur - le joueur a qui appartiennent les statistiques
 	 */
 	public Statistiques(Joueur joueur){
-		this.joueur = joueur;
+		if(joueur != null){
+			this.joueur = joueur;
+		}else{
+			System.out.println("Le joueur n'existe pas (Statistiques)");
+		}
+	}
 
+	/**
+	 * Constructeur de la classe Statistiques qui initialise les attributs
+	 * @param joueur - le joueur a qui appartiennent les statistiques
+	 */
+	public Statistiques(Joueur joueur, int nbParties, int nbVictoires, int nbPionsMange, double tempsDeJeuTotal){
+		if(joueur != null){
+			this.joueur = joueur;
+			if(nbVictoires >= 0){
+				this.nbVictoires = nbVictoires;
+				if(nbPionsMange >= 0){
+					this.nbPionsMange = nbPionsMange;
+					if(tempsDeJeuTotal >= 0){
+						this.tempsDeJeuTotal = tempsDeJeuTotal;
+						if(nbParties  >= 0){
+							this.nbParties = nbParties;
+						}else{System.out.println("Nombre de parties invalid");}
+					}else{System.out.println("Temps de jeu invalid");}
+				}else{System.out.println("Nombre de pions mange invalid");}
+			}else{System.out.println("Nombre de victoires invalid");}
+		}else{System.out.println("Joueur invalid");}
 	}
 
 	/**
@@ -45,26 +70,30 @@ public class Statistiques{
 		return stats;
 	}
 
-	/**
-	 * Sauvegarde les statistiques dans un fichier
-	 */
-	void saveStat(){
-	}
-
-	/**
-	 * Lis les statistiques a partir d'un fichier
-	 * @param fileName - nom du fichier à lire
-	 */
-	void readStat(String fileName){
-	}
 
 	/**
 	 * Met a jour les statistiques du joueur
 	 * @param index - index de l'attribut a modifier
-	 * @param valeur - la valeure a ajouter
+	 * @param valeur - la valeur a ajouter
 	 */
-	void updateStat(int index, int valeur){
-	}
+	 public void updateStat(int nbParties, int nbVictoires, int nbPionsMange, double tempsDeJeuTotal){
+         if(nbVictoires >= 0){
+             this.nbVictoires = nbVictoires;
+             if(nbPionsMange >= 0){
+                 this.nbPionsMange = nbPionsMange;
+                 if(tempsDeJeuTotal >= 0){
+                     this.tempsDeJeuTotal = tempsDeJeuTotal;
+                     if(nbParties  >= 0){
+                         this.nbParties = nbParties;
+                     }else{System.out.println("(Update) Nombre de parties invalid");}
+                 }else{System.out.println("(Update) Temps de jeu invalid");}
+             }else{System.out.println("(Update) Nombre de pions mange invalid");}
+         }else{System.out.println("(Update) Nombre de victoires invalid");}
+     }
+
+	public Joueur getJoueur(){
+	   return this.joueur;
+   }
 
 	/**
 	 * Récupère le nombre de parties jouées par le joueur

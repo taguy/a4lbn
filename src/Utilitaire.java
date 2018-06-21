@@ -72,7 +72,7 @@ public class Utilitaire {
 			 System.out.println("La reponse doit avoir deux chiffres : ex : '00'\n");
 			 tmp = reponseUtilisateur(message, 0, 76, 2);
 
-			 if (tmp.equals("exit")) {
+			 if (tmp.equals("exit") && message.equals("Quelle la position destination ?")) {
 				 break;
 			 }
 
