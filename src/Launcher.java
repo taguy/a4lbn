@@ -27,18 +27,13 @@ public class Launcher{
 	 * Permet de créer la partie, charger des joueurs, charger une partie
 	 */
 	public static void menu() {
-		System.out.println();
+		init();
 
 		if (Utilitaire.reponseUtilisateur("\nBienvenue dans le jeu projetZ !\n Tapez '1' si vous voulez jouer en mode graphique, Tapez '2' sinon\n puis tapez Entree\n", 1, 2, 1).equals("1")) {
 			graphique = true;
 		}
 
 		if (!graphique) {
-			lesParties = new ArrayList<Partie>(0);
-			Sauvegarde.initializeLesParties(lesParties);
-
-			System.out.println();
-
 			if (Utilitaire.reponseUtilisateur("\nTapez '1' si vous voulez creer une partie, Tapez '2' si vous voulez charger une partie\n puis tapez Entree\n", 1, 2, 1).equals("1")) {
 				createPartie();
 			} else {
@@ -59,9 +54,6 @@ public class Launcher{
 	   Scanner in = new Scanner(System.in);
 	   String reponse = "";
 
-	   lesJoueurs = new ArrayList<Joueur>(0);
-	   Sauvegarde.initializeLesJoueurs(lesJoueurs);
-
  	   System.out.println("\nChoisssez un nom de partie :\n");
 	   reponse = in.nextLine();
 
@@ -81,7 +73,7 @@ public class Launcher{
 
 	public static void scenario(){
         lesParties.get(lesParties.size()-1).jouer();
-System.out.println("heeeeey");
+
 		if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder, 2 sinon", 1, 2, 1).equals(2)) {
 			lesParties.remove(lesParties.size()-1);
 
@@ -168,4 +160,13 @@ System.out.println("heeeeey");
  		return ret;
  	}
 
+
+	private static void init() {
+		lesParties = new ArrayList<Partie>(0);
+		Sauvegarde.initializeLesParties(lesParties);
+
+		lesJoueurs = new ArrayList<Joueur>(0);
+		Sauvegarde.initializeLesJoueurs(lesJoueurs);
+
+	}
 }

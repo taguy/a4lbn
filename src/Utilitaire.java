@@ -26,10 +26,9 @@ public class Utilitaire {
 
 			check = true;
 
-			if (reponse != null && message != null) {
-				if (reponse.equalsIgnoreCase("exit")) {
-					ret = "exit";
-				}
+			if (reponse.equalsIgnoreCase("exit")) {
+				ret = "exit";
+			} else if (reponse != null && message != null) {
 				boolean checkNumber = true;
 				int i = 0;
 				while (i < reponse.length() && checkNumber) {
@@ -56,7 +55,7 @@ public class Utilitaire {
 				check = false;
 			}
 
-		} while (!check && !ret.equals("exit"));
+		} while (!check);
 
 		return ret;
 	}
@@ -73,11 +72,19 @@ public class Utilitaire {
 			 System.out.println("La reponse doit avoir deux chiffres : ex : '00'\n");
 			 tmp = reponseUtilisateur(message, 0, 76, 2);
 
+			 if (tmp.equals("exit")) {
+				 break;
+			 }
+
 		 } while (tmp.length() != 2);
 
-
-		 ret[0] = Integer.parseInt(tmp.substring(0, 1)); // récupération du chiffre des dizaines
-		 ret[1] = Integer.parseInt(tmp.substring(1, 2)); // récupération du chiffre des unités
+		 if (tmp.equals("exit")) {
+			 ret[0] = -1;
+			 ret[1] = -1;
+		 } else {
+			 ret[0] = Integer.parseInt(tmp.substring(0, 1)); // récupération du chiffre des dizaines
+			 ret[1] = Integer.parseInt(tmp.substring(1, 2)); // récupération du chiffre des unités
+		 }
 
 		 return ret;
 	 }

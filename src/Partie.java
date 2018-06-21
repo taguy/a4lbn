@@ -1,6 +1,8 @@
 package projetZ;
 import java.io.*;
 import utili.Utilitaire;
+
+//import view.*;
 /**
  * Classe d'enregistrement de l'une partie
  * @author L. GERARDI
@@ -12,29 +14,29 @@ import utili.Utilitaire;
      /** Le nombre de tours avant l'enregistrement */
      private int tours;
 
-   /** Le score du joueur n°1 */
-   private int scoreA;
+     /** Le score du joueur n°1 */
+     private int scoreA;
 
-   /** Le score fu joueur n°2 */
-   private int scoreB;
+    /** Le score fu joueur n°2 */
+    private int scoreB;
 
-   /** Le nom de la partie */
-   private String nom;
+    /** Le nom de la partie */
+    private String nom;
 
-   /** Le joueur n°1 */
-   private Joueur joueurA;
+    /** Le joueur n°1 */
+    private Joueur joueurA;
 
-   /** Le joueur n°2 */
-   private Joueur joueurB;
+    /** Le joueur n°2 */
+    private Joueur joueurB;
 
-   private Joueur current;
+    private Joueur current;
 
-   private Pion[][] damier;
-   /** Le damier contenant les pions */
+    private Pion[][] damier;
+    /** Le damier contenant les pions */
 
-   private final int SCOREMAX = 12;
+    private final int SCOREMAX = 12;
 
-   //private PlateauDeJeu plateau;
+    //private PlateauDeJeu plateau;
 
    /**
     * Le constructeur de la classe qui intialise les attributs
@@ -220,6 +222,7 @@ import utili.Utilitaire;
 	void jouer(){
         int[] posAct = new int[2];
         int[] posDest = new int[2];
+        int tmp = -50;
 
 
          do {
@@ -243,8 +246,12 @@ import utili.Utilitaire;
             if (posAct[0] == -1 || posDest[0] == -1) {
                 break;
             }
-
-            if (this.current.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean()) == 0) {
+            if (this.current instanceof IA) {
+                tmp = this.current.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
+            }else {
+                tmp = this.current.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
+            }
+            if (tmp == 0) {
                     if (this.current == joueurA) {
                         this.current = joueurB;
                     } else {
@@ -256,14 +263,18 @@ import utili.Utilitaire;
                 this.posFin();
             } while (!this.endOfTheGame());
 
-            if (this.current == joueurA) {
-                this.current = joueurB;
-            } else {
-                this.current = joueurA;
+            if (posAct[0] != -1 && posDest[0] != -1) {
+                if (this.current == joueurA) {
+                    this.current = joueurB;
+                } else {
+                    this.current = joueurA;
+                }
+
+                System.out.println(this);
+                System.out.println(this.current.getNom()+" a gagné");
             }
 
-            System.out.println(this);
-            System.out.println(this.current.getNom()+" a gagné");
+
 	  }
 
 
@@ -275,6 +286,7 @@ import utili.Utilitaire;
 		if(this.scoreA >= SCOREMAX || this.scoreB >= SCOREMAX){
 			ret = true;
 		}
+
 		return ret;
 	}
 
