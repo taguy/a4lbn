@@ -1,6 +1,8 @@
 package utili;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.*;
 
 public class Utilitaire {
 
@@ -26,7 +28,7 @@ public class Utilitaire {
 
 			if (reponse != null && message != null) {
 				if (reponse.equalsIgnoreCase("exit")) {
-					System.exit(0);
+					ret = "exit";
 				}
 				boolean checkNumber = true;
 				int i = 0;
@@ -54,7 +56,7 @@ public class Utilitaire {
 				check = false;
 			}
 
-		} while (!check);
+		} while (!check && !ret.equals("exit"));
 
 		return ret;
 	}
@@ -79,5 +81,4 @@ public class Utilitaire {
 
 		 return ret;
 	 }
-
 }

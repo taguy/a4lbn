@@ -10,7 +10,7 @@ import utili.Utilitaire;
  public class Partie{
 
      /** Le nombre de tours avant l'enregistrement */
-   private int tours;
+     private int tours;
 
    /** Le score du joueur n°1 */
    private int scoreA;
@@ -34,8 +34,7 @@ import utili.Utilitaire;
 
    private final int SCOREMAX = 12;
 
-   private static final String SAUVPARTIES = "../files/lesParties.txt";
-
+   //private PlateauDeJeu plateau;
 
    /**
     * Le constructeur de la classe qui intialise les attributs
@@ -149,23 +148,6 @@ import utili.Utilitaire;
        return this.damier;
    }
 
-
-   /**
-    * Sauvegarder la Partie
-    */
-   void sauvePartie(){
-       try {
-           PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(SAUVPARTIES)));
-
-           out.println(this.joueurA.getNom() + " " + this.joueurB.getNom() + " " + this.nom + " " + this.tours + " " + this.scoreA + " " + this.scoreB);
-           out.close();
-       }
-       catch(IOException e) {
-           e.printStackTrace();
-       }
-
-   }
-
 	/**
 	 * Donne le nom de la partie
 	 * @return le nom de la partie
@@ -211,25 +193,25 @@ import utili.Utilitaire;
   */
 
 
-  public void posFin(){
-    for(int i = 0; i <= 7; i++){
-        if(this.damier[i][0] != null){
-            if(this.damier[i][0].getJoueur() == joueurB && !this.damier[i][0].getPosFin()){
-                this.damier[i][0].setPosFin(true);
-                addPointsB(damier[i][0].getTaille());
+    public void posFin(){
+        for(int i = 0; i <= 7; i++){
+            if(this.damier[i][0] != null){
+                if(this.damier[i][0].getJoueur() == this.joueurB && !this.damier[i][0].getPosFin()){
+                    this.damier[i][0].setPosFin(true);
+                    addPointsB(damier[i][0].getTaille());
+                }
+            }
+        }
 
+        for(int j = 0; j <= 7; j++){
+            if(this.damier[j][6] != null){
+                if(this.damier[j][6].getJoueur() == this.joueurA && !this.damier[j][6].getPosFin()){
+                    this.damier[j][6].setPosFin(true);
+                    addPointsA(damier[j][6].getTaille());
+                }
             }
         }
     }
-    for(int j = 0; j <= 7; j++){
-        if(this.damier[j][6] != null){
-            if(this.damier[j][6].getJoueur() == joueurA && !this.damier[j][6].getPosFin()){
-                this.damier[j][6].setPosFin(true);
-                addPointsA(damier[j][6].getTaille());
-            }
-        }
-    }
-  }
 
 	/**
 	 * Joue un tour de jeu
@@ -256,6 +238,10 @@ import utili.Utilitaire;
              } else {
                 posAct = Utilitaire.stringToInt("Quelle est la position du pion a déplacer ?");
                 posDest = Utilitaire.stringToInt("Quelle la position destination ?");
+            }
+
+            if (posAct[0] == -1 || posDest[0] == -1) {
+                break;
             }
 
             if (this.current.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean()) == 0) {
@@ -340,4 +326,13 @@ import utili.Utilitaire;
 
         return ret;
     }
+
+    /**
+     * ajoute le plateau graphique
+     * p le plateau à add
+     */
+     /*
+    public void setPlateau(PlateauDeJeu p){
+        this.plateau = p;
+    }*/
  }

@@ -17,10 +17,6 @@ public class Launcher{
 	/** Tous les joueurs enregistrés */
 	private static ArrayList<Joueur> lesJoueurs;
 
-	private static final String SAUVJOUEURS = "../files/lesJoueurs.txt";
-
-	private static final String SAUVPARTIES = "../files/lesParties.txt";
-
 	public static void main(String[] args){
 		menu();
 		scenario();
@@ -38,7 +34,8 @@ public class Launcher{
 		}
 
 		if (!graphique) {
-			loadPartie();
+			lesParties = new ArrayList<Partie>(0);
+			Sauvegarde.initializeLesParties(lesParties);
 
 			System.out.println();
 
@@ -48,7 +45,7 @@ public class Launcher{
 				for (int i = 0; i < lesParties.size(); i++) {
 					System.out.println(i + " " + lesParties.get(i).getJoueurA().getNom() + " " + lesParties.get(i).getJoueurB().getNom() + " " + lesParties.get(i).getNom() + " " + lesParties.get(i).getTours() + " " + lesParties.get(i).getScoreA() + " " + lesParties.get(i).getScoreB());
 				}
-System.out.println(lesParties.size());
+
 				String reponse = Utilitaire.reponseUtilisateur("\nEntrez le numero de la partie voulue\n puis tapez Entree\n",0, (lesParties.size()-1), ((lesParties.size()-1)+"").length());
 				lesParties.get(Integer.parseInt(reponse));
 			}
@@ -56,150 +53,119 @@ System.out.println(lesParties.size());
 	}
 
 	/**
-	 * Créé la partie et charge les joueurs
-	 */
-	private static void createPartie() {
-		Scanner in = new Scanner(System.in);
-		String reponse = "";
+	* Créé la partie et charge les joueurs
+	*/
+   private static void createPartie() {
+	   Scanner in = new Scanner(System.in);
+	   String reponse = "";
 
-		initializeLesJoueurs();
+	   lesJoueurs = new ArrayList<Joueur>(0);
+	   Sauvegarde.initializeLesJoueurs(lesJoueurs);
 
-		System.out.println("\nChoisssez un nom de partie :\n");
-		reponse = in.nextLine();
+ 	   System.out.println("\nChoisssez un nom de partie :\n");
+	   reponse = in.nextLine();
 
-		Joueur joueurA = choixJoueur();
-		Joueur joueurB = choixJoueur();
+	   Joueur joueurA = choixJoueur();
+	   Joueur joueurB = choixJoueur();
 
-		lesJoueurs.add(joueurA);
-		lesJoueurs.add(joueurB);
-
-
-		lesParties.add(new Partie(lesJoueurs.get(lesJoueurs.size()-2), lesJoueurs.get(lesJoueurs.size()-1), reponse));
-
-		lesParties.get(lesParties.size()-1).getJoueurA().setDamier(lesParties.get(lesParties.size()-1).getDamier());
-		lesParties.get(lesParties.size()-1).getJoueurB().setDamier(lesParties.get(lesParties.size()-1).getDamier());
-	}
-
-	private static Joueur choixJoueur() {
-		Joueur ret = null;
-		Scanner in = new Scanner(System.in);
-		String reponse = null;
-
-		do {
-			System.out.println("\n\n");
-
-			for (int i = 0; i < lesJoueurs.size(); i++) {
-				System.out.println(i + " " + lesJoueurs.get(i).getNom());
-			}
-
-			System.out.println("\n" + lesJoueurs.size() + " Nouveau Joueur");
-			System.out.println(lesJoueurs.size()+1 + " Nouvelle IA\n");
-
-			reponse = Utilitaire.reponseUtilisateur("\nEntrez le numero du joueur voulu\n puis tapez Entree\n",0, (lesJoueurs.size()+1), ((lesJoueurs.size()+1)+"").length());
-
-			if (reponse.equals(lesJoueurs.size()+"")) {
-				System.out.println("\nEntrez votre nom du joueur\n puis tapez Entree\n");
-				reponse = in.nextLine();
-				if (reponse != null && reponse.length() > 1) {
-					ret = new Joueur(reponse);
-				} else {
-					System.out.println("reponse nulle ou trop petite");
-
-					ret = null;
-				}
-			} else if (reponse.equals((lesJoueurs.size()+1)+"")) {
-				System.out.println("\nEntrez votre nom de l'IA\n puis tapez Entree\n");
-				reponse = in.nextLine();
-
-				if (reponse != null && reponse.length() > 1) {
-						ret = new IA(reponse);
-				} else {
-						System.out.println("reponse nulle ou trop petite");
-
-						ret = null;
-				}
-			} else {
-				ret = lesJoueurs.get(Integer.parseInt(reponse));
-				lesJoueurs.remove(Integer.parseInt(reponse));
-			}
-
-		} while (ret == null);
-
-		return ret;
-	}
+	   lesJoueurs.add(joueurA);
+	   lesJoueurs.add(joueurB);
 
 
-	/**
-	 * charge une partie et ses joueurs (déjà existants)
-	 */
-	private static void loadPartie(){
-		initializeLesParties(extractPartie());
-	}
+	   lesParties.add(new Partie(lesJoueurs.get(lesJoueurs.size()-2), lesJoueurs.get(lesJoueurs.size()-1), reponse));
 
+	   lesParties.get(lesParties.size()-1).getJoueurA().setDamier(lesParties.get(lesParties.size()-1).getDamier());
+	   lesParties.get(lesParties.size()-1).getJoueurB().setDamier(lesParties.get(lesParties.size()-1).getDamier());
+   }
 
-	/**
-	 * Extrait les infos du fichier de sauvegarde parties
-	 * @return la hashMap contenant tous les joueurs enregistrés
-	 */
-	private static ArrayList<String> extractPartie() {
-		ArrayList<String> ret = new ArrayList<String>(0);
-
-		try {
-			lesParties = new ArrayList<Partie>(0);
-			BufferedReader in = new BufferedReader(new FileReader (SAUVPARTIES));
-			String s = in.readLine();
-			while(s != null) {
-				ret.add(s);
-				s = in.readLine();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return ret;
-	}
-
-
-	/**
-	 * initialise les joueurs qui participeront à la partie en cours
-	 * @param map - la hashMap de tous les joueurs
-	 */
-	private static void initializeLesJoueurs(){
-		try {
-			lesJoueurs = new ArrayList<Joueur>(0);
-			BufferedReader in = new BufferedReader(new FileReader (SAUVJOUEURS));
-			String s = in.readLine();
-
-			while(s != null) {
-				lesJoueurs.add(new Joueur(s));
-				s = in.readLine();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-
-	/**
-	 * initialise les parties
-	 * @param map - la hashMap de toutes les parties
-	 */
-	private static void initializeLesParties(ArrayList<String> list){
-		StringTokenizer stk;
-
-		for (int i = 0; i < list.size(); i++) {
-			stk = new StringTokenizer(list.get(i));
-			//Joeur A, jB,nom, tours, scoreA score B
-
-			lesParties.add(new Partie(new Joueur(stk.nextToken()), new Joueur(stk.nextToken()), stk.nextToken(), Integer.parseInt(stk.nextToken()), Integer.parseInt(stk.nextToken()), Integer.parseInt(stk.nextToken())));
-			lesParties.get(i).getJoueurA().setDamier(lesParties.get(i).getDamier());
-			lesParties.get(i).getJoueurB().setDamier(lesParties.get(i).getDamier());
-		}
-
-	}
 
 	public static void scenario(){
         lesParties.get(lesParties.size()-1).jouer();
+System.out.println("heeeeey");
+		if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder, 2 sinon", 1, 2, 1).equals(2)) {
+			lesParties.remove(lesParties.size()-1);
+
+			lesJoueurs.remove(lesJoueurs.size()-1);
+			lesJoueurs.remove(lesJoueurs.size()-1);
+		}
+
+		Sauvegarde.sauveParties(lesParties);
+		Sauvegarde.sauveJoueurs(lesJoueurs);
     }
 
+	/**
+	 * intToString retoune un tableau d'int correspondant a la position x et y
+	 * @return ret : le tableau  d'entiers
+	 */
+	 public static int[] stringToInt(String message){
+		 int[] ret = new int[2];
+
+		 String tmp;
+		 do {
+			 System.out.println("La reponse doit avoir deux chiffres : ex : '00'\n");
+			 tmp = Utilitaire.reponseUtilisateur(message, 0, 76, 2);
+
+		 } while (tmp.length() != 2 && !tmp.equals("exit"));
+
+		 if (tmp.equals("exit")) {
+			 ret[0] = -1;
+			 ret[1] = -1;
+		 } else {
+			 ret[0] = Integer.parseInt(tmp.substring(0, 1)); // récupération du chiffre des dizaines
+			 ret[1] = Integer.parseInt(tmp.substring(1, 2)); // récupération du chiffre des unités
+		 }
+
+
+		 return ret;
+	 }
+
+
+ 	private static Joueur choixJoueur() {
+ 		Joueur ret = null;
+ 		Scanner in = new Scanner(System.in);
+ 		String reponse = null;
+
+ 		do {
+ 			System.out.println("\n\n");
+
+ 			for (int i = 0; i < lesJoueurs.size(); i++) {
+ 				System.out.println(i + " " + lesJoueurs.get(i).getNom());
+ 			}
+
+ 			System.out.println("\n" + lesJoueurs.size() + " Nouveau Joueur");
+ 			System.out.println(lesJoueurs.size()+1 + " Nouvelle IA\n");
+
+ 			reponse = Utilitaire.reponseUtilisateur("\nEntrez le numero du joueur voulu\n puis tapez Entree\n",0, (lesJoueurs.size()+1), ((lesJoueurs.size()+1)+"").length());
+
+ 			if (reponse.equals(lesJoueurs.size()+"")) {
+ 				System.out.println("\nEntrez votre nom du joueur\n puis tapez Entree\n");
+ 				reponse = in.nextLine();
+ 				if (reponse != null && reponse.length() > 1) {
+ 					ret = new Joueur(reponse);
+ 				} else {
+ 					System.out.println("reponse nulle ou trop petite");
+
+ 					ret = null;
+ 				}
+ 			} else if (reponse.equals((lesJoueurs.size()+1)+"")) {
+ 				System.out.println("\nEntrez votre nom de l'IA\n puis tapez Entree\n");
+ 				reponse = in.nextLine();
+
+ 				if (reponse != null && reponse.length() > 1) {
+ 						ret = new IA(reponse);
+ 				} else {
+ 						System.out.println("reponse nulle ou trop petite");
+
+ 						ret = null;
+ 				}
+ 			} else {
+ 				ret = lesJoueurs.get(Integer.parseInt(reponse));
+ 				lesJoueurs.remove(Integer.parseInt(reponse));
+ 			}
+
+ 		} while (ret == null);
+
+ 		return ret;
+ 	}
 
 }
