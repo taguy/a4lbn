@@ -8,6 +8,7 @@ public class Sauvegarde {
     private static final String CHEMINJOUEURS = "../files/lesJoueurs.txt";
     private static final String CHEMINPARTIES = "../files/lesParties.txt";
     private static final String CHEMINSTATS = "../files/lesStats.txt";
+    private static final String CHEMINPIONS = "../files/lesPions.txt";
 
 
     /**
@@ -47,7 +48,14 @@ public class Sauvegarde {
 			lesParties.get(i).getJoueurB().setDamier(lesParties.get(i).getDamier());
 		}
 
+        initLesPions(lesParties);
 	}
+
+    private void initLesPions(ArrayList<Partie> lesParties) {
+        ArrayList<String> liste = extraire(CHEMINPIONS);
+
+        
+    }
 
     /**
 	 * initialise les parties
