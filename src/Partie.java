@@ -251,17 +251,19 @@ import utili.Utilitaire;
                 break;
             }
 
+System.out.println(posAct[0] + " " + posAct[1] + " " + posDest[0] + " " + posDest[1]);
+
             if (this.current instanceof IA) {
                 tmp = this.current.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
             }else {
-                tmp = this.current.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
+                tmp = this.current.verifDeplacement(posAct,posDest);
             }
 
             if (tmp == 0) {
-                if (this.current == joueurA) {
-                    this.current = joueurB;
+                if (this.current == this.joueurA) {
+                    this.current = this.joueurB;
                 } else {
-                    this.current = joueurA;
+                    this.current = this.joueurA;
                     this.tours++;
                 }
             }

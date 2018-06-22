@@ -54,7 +54,7 @@ public class Sauvegarde {
 	 * @param map - la hashMap de toutes les parties
 	 */
 	public static void initLesJoueurs(ArrayList<Joueur> joueurs){
-        ArrayList<String> liste = extraire(CHEMINPARTIES);
+        ArrayList<String> liste = extraire(CHEMINJOUEURS);
 		StringTokenizer stk;
 
 		for (int i = 0; i < liste.size(); i++) {

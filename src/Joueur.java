@@ -19,8 +19,6 @@ public class Joueur{
 	/** Damier sur lequel peut agir le joueur */
 	private Pion[][] damier;
 
-	private final String SAUVJOUEURS = "../files/lesJoueurs.txt";
-
 	/**
 	 * Constructeur de la classe joueur qui initialise
 	 * ses attributs pour créer un objet joueur
@@ -41,19 +39,8 @@ public class Joueur{
 	public String getNom(){
 		return this.nom;
 	}
-	/**
-	 * Sauvegarde les attributs du joueurs pour qu'ils
-	 * puissent être réutilisés plus tard
-	 */
-	void sauveJoueur(){
-		try{
-			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(SAUVJOUEURS))); //écriture du nom du joueur dans un fichier txt
-			out.println(this.nom);
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-	}
+
+
 	/**
 	 * Initialise le damier dans lequel le joueur peut agir
 	 * @param damier - le damier dans lequel le joueur peut agir
