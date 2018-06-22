@@ -1,4 +1,5 @@
-package projetZ;
+package model;
+import controller.*;
 /**
  * Classe statistiques qui regroupe toutes les statistiques
  * d'un joueur durant son temps de jeu

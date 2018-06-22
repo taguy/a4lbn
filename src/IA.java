@@ -1,4 +1,4 @@
-package projetZ;
+package controller;
 /**
  * Classe de l'Intelligence Artificielle qui joueras automatiquement
  * @author J. BAUTISTA

@@ -1,4 +1,5 @@
-package projetZ;
+package model;
+import controller.*;
 
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -51,10 +52,10 @@ public class Sauvegarde {
         initLesPions(lesParties);
 	}
 
-    private void initLesPions(ArrayList<Partie> lesParties) {
+    private static void initLesPions(ArrayList<Partie> lesParties) {
         ArrayList<String> liste = extraire(CHEMINPIONS);
 
-        
+
     }
 
     /**

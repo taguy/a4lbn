@@ -1,5 +1,4 @@
-
-package projetZ;
+package controller;
 /**
  * Classe de la modelisation d'un pion
  * @author L. GERARDI

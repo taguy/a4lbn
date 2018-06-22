@@ -1,4 +1,4 @@
-package utili;
+package model;
 
 import java.util.Scanner;
 import java.util.ArrayList;

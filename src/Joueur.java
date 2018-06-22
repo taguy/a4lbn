@@ -1,10 +1,10 @@
-package projetZ;
+package controller;
 
 import java.io.FileWriter; //importation pour la méthode savejoueur
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.BufferedWriter;
-import utili.Utilitaire;
+import model.Utilitaire;
 /**
  * La classe joueur modelise un joueur
  * d'Aracanor avec son nom et son score
@@ -45,7 +45,7 @@ public class Joueur{
 	 * Initialise le damier dans lequel le joueur peut agir
 	 * @param damier - le damier dans lequel le joueur peut agir
 	 */
-	void setDamier(Pion[][] damier){
+	public void setDamier(Pion[][] damier){
 		if(damier != null){
 			this.damier = damier;
 		}
@@ -67,7 +67,7 @@ public class Joueur{
 	 * @param posDest - tableau correspondant à la position de destination du pion
 	 * @return un numero d'erreur si erreur il y a, 0 sinon
 	 */
-	 int verifDeplacement(int[] valPosAct, int [] valPosDest) {
+	public int verifDeplacement(int[] valPosAct, int [] valPosDest) {
 		 return this.verifDeplacement(valPosAct, valPosDest, false);
 	 }
 
@@ -77,7 +77,7 @@ public class Joueur{
 	 * @param posDest - tableau correspondant à la position de destination du pion
 	 * @return un numero d'erreur si erreur il y a, 0 sinon
 	 */
-	 int verifDeplacement(int[] valPosAct, int [] valPosDest, boolean liberer){
+	public int verifDeplacement(int[] valPosAct, int [] valPosDest, boolean liberer){
 		 int posActX = valPosAct[0];
 		 int posActY = valPosAct[1];
 		 int posDestX = valPosDest[0];
@@ -160,7 +160,7 @@ public class Joueur{
 	* @param posDestY : la pos destination à vérifier en Y
 	* @return ret : vrai si la position est bonne ou faux si la position n'est pas bonne
 	*/
-	boolean verifPosDestination(int posActX, int posActY , int posDestX, int posDestY){
+	public boolean verifPosDestination(int posActX, int posActY , int posDestX, int posDestY){
 		boolean ret = false;
 		if((posDestX == posActX && posDestY == posActY-1)||(posDestX == posActX && posDestY == posActY+1) // Bas Haut
 		||(posDestX == posActX-1 && posDestY == posActY)||(posDestX == posActX+1 && posDestY == posActY) //Gauche droite
@@ -255,7 +255,6 @@ public class Joueur{
 	}
 
 	private void message (int codeRetour) {
-
 		if (!(this instanceof IA)) {
 			if (codeRetour == 1) {
 				System.out.println("move() : La posAct est la même que la posDest <!>");

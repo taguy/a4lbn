@@ -1,7 +1,7 @@
-package projetZ;
+package model;
+import controller.*;
 import java.util.*;
 import java.io.*;
-import utili.Utilitaire;
 /**
  * Classe lanceur qui lance le jeu projetZ
  * @author Brice Laigo

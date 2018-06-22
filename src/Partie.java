@@ -1,6 +1,6 @@
-package projetZ;
+package controller;
 import java.io.*;
-import utili.Utilitaire;
+import model.*;
 
 //import view.*;
 /**
@@ -223,7 +223,7 @@ import utili.Utilitaire;
 	 * Joue un tour de jeu
 	 */
 
-	void jouer(){
+	public void jouer(){
         int[] posAct = new int[2];
         int[] posDest = new int[2];
         int tmp = -50;
@@ -289,7 +289,7 @@ System.out.println(posAct[0] + " " + posAct[1] + " " + posDest[0] + " " + posDes
 	/**
 	 * Finis la partie
 	 */
-	boolean finDuJeu(){
+	private boolean finDuJeu(){
 		boolean ret = false;
 		if(this.scoreA >= SCOREMAX || this.scoreB >= SCOREMAX){
 			ret = true;
