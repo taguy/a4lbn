@@ -60,7 +60,7 @@ public class Statistiques{
 	 *Imprime une version des statistiques pour en avoir un apercu
 	 *@return les statistiques en version chaine de caractère
 	 */
-	String display(){
+	public String toString(){
 		String stats ="Statistiques du joueur "+joueur.getNom() +"\n"+
 		"Nombre de parties jouées : " +this.nbParties +"\n" +
 		"Nombre de parties gagnées : "+ this.nbVictoires +"\n" +

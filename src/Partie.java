@@ -38,7 +38,7 @@ import utili.Utilitaire;
 
     private Statistiques statsJoueurA;
 
-    private Statistiques tatsJoueurA;
+    private Statistiques statsJoueurB;
 
     //private PlateauDeJeu plateau;
 
@@ -60,8 +60,8 @@ import utili.Utilitaire;
            this.damier = new Pion[8][7];
            this.current = joueurA;
 
-           initializePions(joueurA);
-           initializePions(joueurB);
+           initPions(joueurA);
+           initPions(joueurB);
        }
        else{
           System.out.println("Partie :Erreur les parmètres sont invalides ");
@@ -99,7 +99,7 @@ import utili.Utilitaire;
     * Initialise les pions
     * @param joueur le joueur qui controle les pions
     */
-   private void initializePions(Joueur joueur){
+   private void initPions(Joueur joueur){
      int xa = 0;
      int xb = 0;
      if (joueur == this.joueurA){
@@ -269,7 +269,7 @@ System.out.println(posAct[0] + " " + posAct[1] + " " + posDest[0] + " " + posDes
             }
 
                 this.posFin();
-        } while (!this.endOfTheGame());
+        } while (!this.finDuJeu());
 
             if (posAct[0] != -1 && posDest[0] != -1) {
                 if (this.current == joueurA) {
@@ -289,7 +289,7 @@ System.out.println(posAct[0] + " " + posAct[1] + " " + posDest[0] + " " + posDes
 	/**
 	 * Finis la partie
 	 */
-	boolean endOfTheGame(){
+	boolean finDuJeu(){
 		boolean ret = false;
 		if(this.scoreA >= SCOREMAX || this.scoreB >= SCOREMAX){
 			ret = true;
