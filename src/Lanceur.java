@@ -9,7 +9,7 @@ import utili.Utilitaire;
  * @author Nguyen Nguyen
  * @version 1.0
  */
-public class Launcher{
+public class Lanceur{
 	/** Mode console ou mode graphique */
 	private static boolean graphique;
 	/** Toutes les parties enregistrées */
