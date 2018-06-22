@@ -37,7 +37,7 @@ public class Lanceur{
 
 		if (!graphique) {
 			if (Utilitaire.reponseUtilisateur("\nTapez '1' si vous voulez creer une partie, Tapez '2' si vous voulez charger une partie\n puis tapez Entree\n", 1, 2, 1).equals("1")) {
-				createPartie();
+				creerPartie();
 			} else {
 				for (int i = 0; i < lesParties.size(); i++) {
 					System.out.println(i + " " + lesParties.get(i).getJoueurA().getNom() + " " + lesParties.get(i).getJoueurB().getNom() + " " + lesParties.get(i).getNom() + " " + lesParties.get(i).getTours() + " " + lesParties.get(i).getScoreA() + " " + lesParties.get(i).getScoreB());
@@ -52,7 +52,7 @@ public class Lanceur{
 	/**init
 	* Créé la partie et charge les joueurs
 	*/
-   private static void createPartie() {
+   private static void creerPartie() {
 	   Scanner in = new Scanner(System.in);
 	   String reponse = "";
 
@@ -86,32 +86,6 @@ public class Lanceur{
 		Sauvegarde.sauveParties(lesParties);
 		Sauvegarde.sauveJoueurs(lesJoueurs);
     }
-
-	/**
-	 * intToString retoune un tableau d'int correspondant a la position x et y
-	 * @return ret : le tableau  d'entiers
-	 */
-	 public static int[] stringToInt(String message){
-		 int[] ret = new int[2];
-
-		 String tmp;
-		 do {
-			 System.out.println("La reponse doit avoir deux chiffres : ex : '00'\n");
-			 tmp = Utilitaire.reponseUtilisateur(message, 0, 76, 2);
-
-		 } while (tmp.length() != 2 && !tmp.equals("exit"));
-
-		 if (tmp.equals("exit")) {
-			 ret[0] = -1;
-			 ret[1] = -1;
-		 } else {
-			 ret[0] = Integer.parseInt(tmp.substring(0, 1)); // récupération du chiffre des dizaines
-			 ret[1] = Integer.parseInt(tmp.substring(1, 2)); // récupération du chiffre des unités
-		 }
-
-
-		 return ret;
-	 }
 
 
  	private static Joueur choixJoueur() {

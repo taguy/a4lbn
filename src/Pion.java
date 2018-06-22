@@ -58,14 +58,6 @@ public class Pion {
 	  this.contenu = pion;
   }
 
-
-  /**
-   * Sauvegarder la position du pion
-   */
-  void sauvePion(){
-
-  }
-
   /**
    * Retourne le joueur
    * @return le Joueur
