@@ -20,18 +20,8 @@ public class Lanceur{
 	private static ArrayList<Statistiques> lesStats;
 
 	public static void main(String[] args){
-		lesParties = new ArrayList<Partie>(0);
-		lesParties.add(new Partie(new Joueur("A"), new Joueur("B"), "test"));
-		lesParties.add(new Partie(new Joueur("lolo"), new Joueur("brbi"), "aloo"));
-		Sauvegarde.sauveParties(lesParties);
-
-		lesParties = new ArrayList<Partie>(0);
-		Sauvegarde.initLesParties(lesParties);
-		for (Partie p : lesParties) {
-			System.out.println(p.getNom());
-		}
-		//menu();
-		//scenario();
+		menu();
+		scenario();
 	}
 
 	/**
@@ -93,8 +83,9 @@ public class Lanceur{
 			lesJoueurs.remove(lesJoueurs.size()-1);
 		}
 
-		Sauvegarde.sauveParties(lesParties);
-		Sauvegarde.sauveJoueurs(lesJoueurs);
+		Sauvegarde.sauveLesParties(lesParties);
+		Sauvegarde.sauveLesJoueurs(lesJoueurs);
+		Sauvegarde.sauveLesStats(lesStats);
     }
 
 
@@ -154,8 +145,8 @@ public class Lanceur{
 		lesJoueurs = new ArrayList<Joueur>(0);
 		Sauvegarde.initLesJoueurs(lesJoueurs);
 
-		lesJoueurs = new ArrayList<Joueur>(0);
-		Sauvegarde.initLesJoueurs(lesJoueurs);
+		lesStats = new ArrayList<Statistiques>(0);
+		Sauvegarde.initLesStats(lesStats);
 
 	}
 }
