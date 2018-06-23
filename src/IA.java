@@ -18,6 +18,7 @@ public class IA extends Joueur{
 
 	/**
 	 * Methode permettant à un joueur IA de jouer
+	 * @return La position actuelle choisie et la position destination
 	 */
 	public int[][] auto(){
 		ArrayList<int[]> listePosDest = new ArrayList<int[]>();
@@ -64,8 +65,6 @@ System.out.println("PosAct" + "tmp " + tmp[0] + " " + tmp[1]);
 			}
 		}
 
-
-
 		int i = (int) (Math.random() * listePosDest.size());
 
 		posAct = listePosDest.get(i);
@@ -76,7 +75,10 @@ System.out.println("PosAct" + "tmp " + tmp[0] + " " + tmp[1]);
 		return ret;
 	}
 
-
+	/**
+	 * Retourne les positions des pions de l'IA
+	 * @return Les positions des pions de l'IA
+	 */
 	private int[] posAct() {
 		Pion[][] damier = this.getDamier();
 
@@ -101,20 +103,14 @@ System.out.println("PosAct" + "tmp " + tmp[0] + " " + tmp[1]);
 
 								nb++;
 							}
-
 							nb++;
 						}
-
 						nb++;
 					}
-
 					nb++;
 				}
-
 				j++;
-
 			}
-
 			i++;
 		}
 

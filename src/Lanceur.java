@@ -7,19 +7,22 @@ import java.io.*;
  * @author Brice Laigo
  * @author Lorenzo Gerardi
  * @author Nguyen Nguyen
- * @version 1.0
  */
 public class Lanceur{
 	/** Mode console ou mode graphique */
 	private static boolean graphique;
+
 	/** Toutes les parties enregistrées */
 	private static ArrayList<Partie> lesParties;
+
 	/** Tous les joueurs enregistrés */
 	private static ArrayList<Joueur> lesJoueurs;
 
+	/** Toutes les statistiques enregistrés */
 	private static ArrayList<Statistiques> lesStats;
 
 	public static void main(String[] args){
+		init();
 		menu();
 		scenario();
 	}
@@ -29,7 +32,6 @@ public class Lanceur{
 	 * Permet de créer la partie, charger des joueurs, charger une partie
 	 */
 	public static void menu() {
-		init();
 
 		if (Utilitaire.reponseUtilisateur("\nBienvenue dans le jeu projetZ !\n Tapez '1' si vous voulez jouer en mode graphique, Tapez '2' sinon\n puis tapez Entree\n", 1, 2, 1).equals("1")) {
 			graphique = true;
@@ -49,32 +51,36 @@ public class Lanceur{
 		}
 	}
 
-	/**init
+
+	/**
 	* Créé la partie et charge les joueurs
 	*/
-   private static void creerPartie() {
-	   Scanner in = new Scanner(System.in);
-	   String reponse = "";
+   	private static void creerPartie() {
+	   	Scanner in = new Scanner(System.in);
+	   		String reponse = "";
 
- 	   System.out.println("\nChoisssez un nom de partie :\n");
-	   reponse = in.nextLine();
+ 	   	System.out.println("\nChoisssez un nom de partie :\n");
+	   	reponse = in.nextLine();
 
-	   Joueur joueurA = choixJoueur();
-	   Joueur joueurB = choixJoueur();
+	   	Joueur joueurA = choixJoueur();
+	   	Joueur joueurB = choixJoueur();
 
-	   lesJoueurs.add(joueurA);
-	   lesJoueurs.add(joueurB);
-
-
-	   lesParties.add(new Partie(lesJoueurs.get(lesJoueurs.size()-2), lesJoueurs.get(lesJoueurs.size()-1), reponse));
-
-	   lesParties.get(lesParties.size()-1).getJoueurA().setDamier(lesParties.get(lesParties.size()-1).getDamier());
-	   lesParties.get(lesParties.size()-1).getJoueurB().setDamier(lesParties.get(lesParties.size()-1).getDamier());
-   }
+	   	lesJoueurs.add(joueurA);
+	   	lesJoueurs.add(joueurB);
 
 
+	   	lesParties.add(new Partie(lesJoueurs.get(lesJoueurs.size()-2), lesJoueurs.get(lesJoueurs.size()-1), reponse));
+
+	   	lesParties.get(lesParties.size()-1).getJoueurA().setDamier(lesParties.get(lesParties.size()-1).getDamier());
+	   	lesParties.get(lesParties.size()-1).getJoueurB().setDamier(lesParties.get(lesParties.size()-1).getDamier());
+   	}
+
+
+	/**
+	 * Permet de joueur après avoir initialisé les joueurs et la partie
+	 */
 	public static void scenario(){
-        lesParties.get(lesParties.size()-1).jouer();
+    	lesParties.get(lesParties.size()-1).jouer();
 
 		if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder, 2 sinon", 1, 2, 1).equals(1)) {
 			lesParties.remove(lesParties.size()-1);
@@ -89,8 +95,11 @@ public class Lanceur{
     }
 
 
- 	private static Joueur choixJoueur() {
- 		Joueur ret = null;
+	/**
+	 * Permer de choisir les joueurs sauvegardés ou de créer un joueur
+	 */
+	private static Joueur choixJoueur() {
+		Joueur ret = null;
  		Scanner in = new Scanner(System.in);
  		String reponse = null;
 
@@ -135,9 +144,12 @@ public class Lanceur{
  		} while (ret == null);
 
  		return ret;
- 	}
+	}
 
 
+	/**
+	 * Initialise les ArrayList avec les parties, joueurs et statistiques sauvegardées
+	 */
 	private static void init() {
 		lesParties = new ArrayList<Partie>(0);
 		Sauvegarde.initLesParties(lesParties);
@@ -147,6 +159,5 @@ public class Lanceur{
 
 		lesStats = new ArrayList<Statistiques>(0);
 		Sauvegarde.initLesStats(lesStats);
-
 	}
 }

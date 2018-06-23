@@ -1,16 +1,15 @@
 package controller;
-import java.io.*;
 import model.*;
 
 //import view.*;
+
 /**
- * Classe d'enregistrement de l'une partie
+ * Classe de modélisation d'une partie
  * @author L. GERARDI
  * @author B. LAIGO
  * @author N. NGUYEN
  */
- public class Partie implements Serializable {
-     private static final String CHEMINPARTIES = "../files/lesParties.txt";
+ public class Partie implements java.io.Serializable {
 
      /** Le nombre de tours avant l'enregistrement */
      private int tours;
@@ -30,11 +29,13 @@ import model.*;
     /** Le joueur n°2 */
     private Joueur joueurB;
 
+    /** Le joueur actuel */
     private Joueur current;
 
-    private Pion[][] damier;
     /** Le damier contenant les pions */
+    private Pion[][] damier;
 
+    /** Le score Maximale */
     private final int SCOREMAX = 12;
 
     private Statistiques statsJoueurA;
@@ -44,7 +45,7 @@ import model.*;
     //private PlateauDeJeu plateau;
 
    /**
-    * Le constructeur de la classe qui intialise les attributs
+    * Le constructeur de la classe qui intialise les attributs pour création de l'objet
     * @param joueurA le 1er joueur
     * @param joueurB le 2e joueur
     * @param nom - le nom de la partie
@@ -70,7 +71,7 @@ import model.*;
    }
 
    /**
-    * Le constructeur de la classe qui intialise les attributs
+    * Le constructeur de la classe qui intialise les attributs après sauvegarde
     * @param joueurA le 1er joueur
     * @param joueurB le 2e joueur
     * @param nom - le nom de la partie
@@ -280,13 +281,12 @@ import model.*;
                 System.out.println(this);
                 System.out.println(this.current.getNom()+" a gagné");
             }
-
-
 	  }
 
 
 	/**
-	 * Finis la partie
+	 * Rends vrai si la partie est finie, faux sinon
+     * @return vrai si la partie est finie, faux sinon
 	 */
 	private boolean finDuJeu(){
 		boolean ret = false;
@@ -297,6 +297,11 @@ import model.*;
 		return ret;
 	}
 
+
+    /**
+     * Retourne la partie sous forme de String
+     * @return Les joueurs et leur score, le joueur actuel, le damier et les pions cachés
+     */
     public String toString(){
       String ret = "Tours : " + this.tours + "\n" + this.joueurA.getNom() + " : " + this.scoreA + "\n" + this.joueurB.getNom() + " : "+this.scoreB + "\n  0    1    2    3    4    5    6    7    \n";
 
@@ -346,21 +351,13 @@ import model.*;
         return ret;
     }
 
-    public void write(){
-		try{
-			ObjectOutputStream out = new ObjectOutputStream (new BufferedOutputStream (new FileOutputStream (CHEMINPARTIES)));
-			out.writeObject(this);
-			out.close();
-		}
-		catch(IOException e){
-			e.printStackTrace();
-		}
-    }
+
+
     /**
-     * ajoute le plateau graphique
-     * p le plateau à add
-     */
-     /*
+     * Ajoute le plateau graphique
+     * @param p le plateau à add
+     *
+     *//*
     public void setPlateau(PlateauDeJeu p){
         this.plateau = p;
     }*/

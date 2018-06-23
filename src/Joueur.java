@@ -1,23 +1,22 @@
 package controller;
 
-import java.io.FileWriter; //importation pour la méthode savejoueur
-import java.io.PrintWriter;
-import java.io.IOException;
-import java.io.BufferedWriter;
 import model.Utilitaire;
 /**
  * La classe joueur modelise un joueur
- * d'Aracanor avec son nom et son score
+ * d'Arcanor avec son nom et son score
  * @author Brice Laigo
  * @author Lorenzo Gerardi
  * @author Nguyen Nguyen
  * @version 1.0
  */
 public class Joueur implements java.io.Serializable {
+
 	/** Nom du joueur */
 	private String nom;
+
 	/** Damier sur lequel peut agir le joueur */
 	private Pion[][] damier;
+
 
 	/**
 	 * Constructeur de la classe joueur qui initialise
@@ -32,6 +31,8 @@ public class Joueur implements java.io.Serializable {
 			System.out.println("Joueur(String nom) : Pas de nom attibué");
 		}
 	}
+
+
 	/**
 	 * Getter du nom du joueur
 	 * @return le nom du joueur
@@ -53,6 +54,8 @@ public class Joueur implements java.io.Serializable {
 			System.out.println(" setDamier() : Le damier est null");
 		}
 	}
+
+
 	/**
 	 * Retourne le damier lié au joueur
 	 *@return le damier
@@ -60,6 +63,7 @@ public class Joueur implements java.io.Serializable {
 	public Pion[][] getDamier(){
 		return this.damier;
 	}
+
 
 	/**
 	 * vérifie l'etat du damier pour informer la methodes deplacer
@@ -70,6 +74,7 @@ public class Joueur implements java.io.Serializable {
 	public int verifDeplacement(int[] valPosAct, int [] valPosDest) {
 		 return this.verifDeplacement(valPosAct, valPosDest, false);
 	 }
+
 
 	/**
 	 * vérifie l'etat du damier pour informer la methodes deplacer
@@ -170,6 +175,8 @@ public class Joueur implements java.io.Serializable {
 		}
 		return ret;
 	}
+
+
 	/**
 	 * Bouge le pion de la position où il se situe vers la position souhaitée
 	 * en laissant son contenu sur place si le cas se présente
@@ -212,6 +219,8 @@ public class Joueur implements java.io.Serializable {
 		}
 		return codeRetour;
 	}
+
+
 	/**
      * Libere le pion contenu dedans
      * @param pos la position la ou le pion contenu est libere
@@ -233,6 +242,8 @@ public class Joueur implements java.io.Serializable {
 			this.damier[posActX][posActY] = null;
 		}
     }
+
+
 	/**
 	* Glisse un pion a une position choisi
 	*@param valPosAct : tableau correspondant à la pos actuelle choisi
@@ -249,10 +260,12 @@ public class Joueur implements java.io.Serializable {
 		this.damier[posDestX][posDestY] = tmp;
 	}
 
+
 	public int[][] auto(){
 		int[][] test = null;
 		return test;
 	}
+
 
 	private void message (int codeRetour) {
 		if ((this instanceof IA)) {
@@ -271,8 +284,8 @@ public class Joueur implements java.io.Serializable {
 			} else if (codeRetour == 8) {
 				System.out.println("Glissement impossible <!>");
 			}
-
 		}
 	}
+
 
 }

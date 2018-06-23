@@ -5,38 +5,49 @@ import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.io.*;
 
+/**
+ * Classe servant à la sauvegarde des joueurs, des parties et des statistiques
+ * @author L. GERARDI
+ * @author B. LAIGO
+ * @author N. NGUYEN
+ */
 public class Sauvegarde {
+    /** Répertoire contenant les index (qui eux-même) contiennent les chemins menant aux fichiers de sauvegarde */
     private static final String INDEX = "../files/";
-    private static final String CHEMINJOUEURS = "../files/lesJoueurs.txt";
+
+    /** Répertoire contenant les sauvegardes de joueurs */
+    private static final String CHEMINJOUEURS = "../files/lesJoueurs/";
+
+    /** Répertoire contenant les sauvegardes de parties */
     private static final String CHEMINPARTIES = "../files/lesParties/";
-    private static final String CHEMINSTATS = "../files/lesStats.txt";
-    private static final String CHEMINPIONS = "../files/lesPions.txt";
+
+    /** Répertoire contenant les sauvegardes de statistiques */
+    private static final String CHEMINSTATS = "../files/lesStats/";
+
 
     /**
-     	 * Extrait les infos du fichier de sauvegarde parties
-     	 * @return la hashMap contenant tous les joueurs enregistrés
-     	 */
-     	private static ArrayList<String> extraire(String fileName) {
-     		ArrayList<String> ret = new ArrayList<String>(0);
+     * Extrait les lignes contenues dans un fichier
+     * @return Un ArrayList de String contenant les lignes
+     */
+    private static ArrayList<String> extraire(String fileName) {
+    	ArrayList<String> ret = new ArrayList<String>(0);
 
-     		try {
-     			BufferedReader in = new BufferedReader(new FileReader (fileName));
-     			String s = in.readLine();
-     			while(s != null) {
-     				ret.add(s);
-     				s = in.readLine();
-     			}
-     		} catch (Exception e) {
-     			e.printStackTrace();
-     		}
-     		return ret;
+ 		try {
+ 			BufferedReader in = new BufferedReader(new FileReader (fileName));
+ 			String s = in.readLine();
+
+ 			while(s != null) {
+ 				ret.add(s);
+ 				s = in.readLine();
+ 			}
+ 		} catch (Exception e) {
+ 			e.printStackTrace();
+ 		}
+ 		return ret;
     }
 
 
-    /**
-	 * initialise les parties
-	 * @param map - la hashMap de toutes les parties
-	 */
+
 	public static void initLesParties(ArrayList<Partie> lesParties){
         ArrayList<String> liste = extraire(INDEX+"lesParties.txt");
         ObjectInputStream in = null;
@@ -57,10 +68,11 @@ public class Sauvegarde {
         }
 	}
 
+
     /**
-	 * initialise les joueurs
-	 * @param map - la hashMap de toutes les parties
-	 */
+	 * Initialise les joueurs
+ 	 * @param lesJoueurs L'ArrayList contenant les joueurs
+ 	 */
 	public static void initLesJoueurs(ArrayList<Joueur> lesJoueurs){
         ArrayList<String> liste = extraire(INDEX+"lesJoueurs.txt");
         ObjectInputStream in = null;
@@ -81,9 +93,10 @@ public class Sauvegarde {
         }
 	}
 
- 	/**
- 	 * initialise les joueurs qui participeront à la partie en cours
- 	 * @param map - la hashMap de tous les joueurs
+
+    /**
+ 	 * Initialise les statistiques
+ 	 * @param lesStats L'ArrayList contenant les statistiques
  	 */
  	public static void initLesStats(ArrayList<Statistiques> lesStats){
         ArrayList<String> liste = extraire(INDEX+"lesStats.txt");
@@ -105,9 +118,11 @@ public class Sauvegarde {
         }
  	}
 
-	 /**
-      * Sauvegarder la Partie
-      */
+
+    /**
+	 * Sauvegarde les parties
+	 * @param lesParties L'ArrayList contenant les parties
+	 */
      public static void sauveLesParties(ArrayList<Partie> lesParties){
          try {
              String s = INDEX + "lesParties.txt";
@@ -132,29 +147,10 @@ public class Sauvegarde {
       }
 
 
-      public static void sauveLesPions(ArrayList<Partie> liste){
-          try {
-              FileOutputStream fos = new FileOutputStream(CHEMINPIONS);
-              fos.close();
-
-              PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(CHEMINPIONS)));
-
-            for (Partie p : liste) {
-                out.println(p.getNom() + " " + p.getJoueurA().getNom() + " ");
-                //for (int[] pos : p.getJoueurA().posAct()) {
-                    //out.print(pos[0] + " " + pos[1] + " " + p.getDamier()[pos[0]][pos[1]] + " ");
-                //}
-            }
-
-              out.close();
-          } catch(Exception e) {
-              e.printStackTrace();
-          }
-       }
-
-	  /**
-	   * Sauvegarder la Partie
-	   */
+     /**
+  	  * Sauvegarde les joueurs
+   	  * @param lesJoueurs L'ArrayList contenant les joueurs
+   	  */
 	  public static void sauveLesJoueurs(ArrayList<Joueur> lesJoueurs){
           try {
               String s = INDEX + "lesJoueurs.txt";
@@ -178,9 +174,10 @@ public class Sauvegarde {
          }
      }
 
-       /**
- 	   * Sauvegarder les stats
- 	   */
+     /**
+       * Sauvegarde les statistiques
+       * @param lesStats L'ArrayList contenant les statistiques
+       */
  	  public static void sauveLesStats(ArrayList<Statistiques> lesStats){
           try {
               String str = INDEX + "lesStats.txt";
@@ -194,6 +191,7 @@ public class Sauvegarde {
               for (Statistiques s : lesStats) {
                   str = CHEMINSTATS + s.getJoueur().getNom() + ".txt"; //Path du fichier
                   pw.println(str); //On écrit dans l'index
+                  
                   objOut = new ObjectOutputStream (new BufferedOutputStream (new FileOutputStream (str))); //On écrit dans le path
                   objOut.writeObject(s);
                   objOut.close();
