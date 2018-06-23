@@ -13,7 +13,7 @@ import model.Utilitaire;
  * @author Nguyen Nguyen
  * @version 1.0
  */
-public class Joueur{
+public class Joueur implements java.io.Serializable {
 	/** Nom du joueur */
 	private String nom;
 	/** Damier sur lequel peut agir le joueur */
@@ -255,7 +255,7 @@ public class Joueur{
 	}
 
 	private void message (int codeRetour) {
-		if (!(this instanceof IA)) {
+		if ((this instanceof IA)) {
 			if (codeRetour == 1) {
 				System.out.println("move() : La posAct est la même que la posDest <!>");
 			} else if (codeRetour == 2) {

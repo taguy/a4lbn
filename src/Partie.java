@@ -9,7 +9,8 @@ import model.*;
  * @author B. LAIGO
  * @author N. NGUYEN
  */
- public class Partie{
+ public class Partie implements Serializable {
+     private static final String CHEMINPARTIES = "../files/lesParties.txt";
 
      /** Le nombre de tours avant l'enregistrement */
      private int tours;
@@ -251,8 +252,6 @@ import model.*;
                 break;
             }
 
-System.out.println(posAct[0] + " " + posAct[1] + " " + posDest[0] + " " + posDest[1]);
-
             if (this.current instanceof IA) {
                 tmp = this.current.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
             }else {
@@ -347,6 +346,16 @@ System.out.println(posAct[0] + " " + posAct[1] + " " + posDest[0] + " " + posDes
         return ret;
     }
 
+    public void write(){
+		try{
+			ObjectOutputStream out = new ObjectOutputStream (new BufferedOutputStream (new FileOutputStream (CHEMINPARTIES)));
+			out.writeObject(this);
+			out.close();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+    }
     /**
      * ajoute le plateau graphique
      * p le plateau à add

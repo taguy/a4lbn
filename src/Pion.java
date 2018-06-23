@@ -5,7 +5,7 @@ package controller;
  * @author B. LAIGO
  * @author N. NGUYEN
  */
-public class Pion {
+public class Pion implements java.io.Serializable {
 
   private Pion contenu;
   /** Le contenu dans le pion */

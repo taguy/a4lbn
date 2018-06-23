@@ -37,26 +37,23 @@ public class Sauvegarde {
 	 * @param map - la hashMap de toutes les parties
 	 */
 	public static void initLesParties(ArrayList<Partie> lesParties){
-        ArrayList<String> liste = extraire(CHEMINPARTIES);
-		StringTokenizer stk;
+        try {
+            Partie p;
+            ObjectInputStream in = new ObjectInputStream (new BufferedInputStream (new FileInputStream (CHEMINPARTIES)));
+            do {
+                p = (Partie) in.readObject();
+                lesParties.add(p);
+            } while (p != null);
+            in.close();
 
-		for (int i = 0; i < liste.size(); i++) {
-			stk = new StringTokenizer(liste.get(i));
-			//Joeur A, jB,nom, tours, scoreA score B
-
-			lesParties.add(new Partie(new Joueur(stk.nextToken()), new Joueur(stk.nextToken()), stk.nextToken(), Integer.parseInt(stk.nextToken()), Integer.parseInt(stk.nextToken()), Integer.parseInt(stk.nextToken())));
-			lesParties.get(i).getJoueurA().setDamier(lesParties.get(i).getDamier());
-			lesParties.get(i).getJoueurB().setDamier(lesParties.get(i).getDamier());
-		}
-
-        initLesPions(lesParties);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (EOFException exc) {
+            e.printStackTrace();
+        }catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 	}
-
-    private static void initLesPions(ArrayList<Partie> lesParties) {
-        ArrayList<String> liste = extraire(CHEMINPIONS);
-
-
-    }
 
     /**
 	 * initialise les parties
@@ -113,6 +110,15 @@ public class Sauvegarde {
              FileOutputStream fos = new FileOutputStream(CHEMINPARTIES);
              fos.close();
 
+ 			ObjectOutputStream out = new ObjectOutputStream (new BufferedOutputStream (new FileOutputStream (CHEMINPARTIES)));
+            for (Partie p : liste) {
+                out.writeObject(p);
+            }
+ 			 out.close();
+     		} catch(IOException e){
+         		e.printStackTrace();
+         	}
+/*
              PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(CHEMINPARTIES)));
 
 			 for (Partie p : liste) {
@@ -122,8 +128,29 @@ public class Sauvegarde {
              out.close();
          } catch(IOException e) {
              e.printStackTrace();
-         }
+         }*/
       }
+
+
+      public static void sauvePions(ArrayList<Partie> liste){
+          try {
+              FileOutputStream fos = new FileOutputStream(CHEMINPIONS);
+              fos.close();
+
+              PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(CHEMINPIONS)));
+
+            for (Partie p : liste) {
+                out.println(p.getNom() + " " + p.getJoueurA().getNom() + " ");
+                //for (int[] pos : p.getJoueurA().posAct()) {
+                    //out.print(pos[0] + " " + pos[1] + " " + p.getDamier()[pos[0]][pos[1]] + " ");
+                //}
+            }
+
+              out.close();
+          } catch(IOException e) {
+              e.printStackTrace();
+          }
+       }
 
 	  /**
 	   * Sauvegarder la Partie

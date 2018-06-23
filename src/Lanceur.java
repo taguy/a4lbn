@@ -20,8 +20,18 @@ public class Lanceur{
 	private static ArrayList<Statistiques> lesStats;
 
 	public static void main(String[] args){
-		menu();
-		scenario();
+		lesParties = new ArrayList<Partie>(0);
+		lesParties.add(new Partie(new Joueur("A"), new Joueur("B"), "test"));
+		lesParties.add(new Partie(new Joueur("lolo"), new Joueur("brbi"), "aloo"));
+		Sauvegarde.sauveParties(lesParties);
+
+		lesParties = new ArrayList<Partie>(0);
+		Sauvegarde.initLesParties(lesParties);
+		for (Partie p : lesParties) {
+			System.out.println(p.getNom());
+		}
+		//menu();
+		//scenario();
 	}
 
 	/**
