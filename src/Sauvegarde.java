@@ -174,6 +174,7 @@ public class Sauvegarde {
          }
      }
 
+
      /**
        * Sauvegarde les statistiques
        * @param lesStats L'ArrayList contenant les statistiques
@@ -191,7 +192,7 @@ public class Sauvegarde {
               for (Statistiques s : lesStats) {
                   str = CHEMINSTATS + s.getJoueur().getNom() + ".txt"; //Path du fichier
                   pw.println(str); //On écrit dans l'index
-                  
+
                   objOut = new ObjectOutputStream (new BufferedOutputStream (new FileOutputStream (str))); //On écrit dans le path
                   objOut.writeObject(s);
                   objOut.close();
