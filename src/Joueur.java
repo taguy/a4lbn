@@ -1,23 +1,22 @@
 package controller;
 
-import java.io.FileWriter; //importation pour la méthode savejoueur
-import java.io.PrintWriter;
-import java.io.IOException;
-import java.io.BufferedWriter;
 import model.Utilitaire;
 /**
  * La classe joueur modelise un joueur
- * d'Aracanor avec son nom et son score
+ * d'Arcanor avec son nom et son score
  * @author Brice Laigo
  * @author Lorenzo Gerardi
  * @author Nguyen Nguyen
  * @version 1.0
  */
-public class Joueur{
+public class Joueur implements java.io.Serializable {
+
 	/** Nom du joueur */
 	private String nom;
+
 	/** Damier sur lequel peut agir le joueur */
 	private Pion[][] damier;
+
 
 	/**
 	 * Constructeur de la classe joueur qui initialise
@@ -32,6 +31,8 @@ public class Joueur{
 			System.out.println("Joueur(String nom) : Pas de nom attibué");
 		}
 	}
+
+
 	/**
 	 * Getter du nom du joueur
 	 * @return le nom du joueur
@@ -53,6 +54,8 @@ public class Joueur{
 			System.out.println(" setDamier() : Le damier est null");
 		}
 	}
+
+
 	/**
 	 * Retourne le damier lié au joueur
 	 *@return le damier
@@ -61,20 +64,23 @@ public class Joueur{
 		return this.damier;
 	}
 
+
 	/**
 	 * vérifie l'etat du damier pour informer la methodes deplacer
-	 * @param posAct - tableau correspondant à la position actuelle du pion
-	 * @param posDest - tableau correspondant à la position de destination du pion
+	 * @param valPosAct - tableau correspondant à la position actuelle du pion
+	 * @param valPosDest - tableau correspondant à la position de destination du pion
 	 * @return un numero d'erreur si erreur il y a, 0 sinon
 	 */
 	public int verifDeplacement(int[] valPosAct, int [] valPosDest) {
 		 return this.verifDeplacement(valPosAct, valPosDest, false);
 	 }
 
+
 	/**
 	 * vérifie l'etat du damier pour informer la methodes deplacer
-	 * @param posAct - tableau correspondant à la position actuelle du pion
-	 * @param posDest - tableau correspondant à la position de destination du pion
+	 * @param valPosAct - tableau correspondant à la position actuelle du pion
+	 * @param valPosDest - tableau correspondant à la position de destination du pion
+	 * @param liberer booleen destiné à l'IA, vrai si l'IA décapsule, faux sinon
 	 * @return un numero d'erreur si erreur il y a, 0 sinon
 	 */
 	public int verifDeplacement(int[] valPosAct, int [] valPosDest, boolean liberer){
@@ -155,8 +161,8 @@ public class Joueur{
 	/**
 	* vérifie que le déplacemment respecte les règles du jeu arcanor
 	* @param posActX : la pos actuelle du pion en X
-	* @param posDestY : la pos actuelle du pion en Y
-	* @param posActcX : la pos destination à vérifier en X
+	* @param posActY : la pos actuelle du pion en Y
+	* @param posDestX : la pos destination à vérifier en X
 	* @param posDestY : la pos destination à vérifier en Y
 	* @return ret : vrai si la position est bonne ou faux si la position n'est pas bonne
 	*/
@@ -170,11 +176,13 @@ public class Joueur{
 		}
 		return ret;
 	}
+
+
 	/**
 	 * Bouge le pion de la position où il se situe vers la position souhaitée
 	 * en laissant son contenu sur place si le cas se présente
-	 * @param posAct - tableau correspondant à la position actuelle du pion
-	 * @param posDest - tableau correspondant à la position de destination du pion
+	 * @param valPosAct - tableau correspondant à la position actuelle du pion
+	 * @param valPosDest - tableau correspondant à la position de destination du pion
 	 * @return un numero d'erreur si erreur il y a, 0 sinon
 	 */
 	int manger(int[] valPosAct, int [] valPosDest){ //code a verifier
@@ -212,9 +220,12 @@ public class Joueur{
 		}
 		return codeRetour;
 	}
+
+
 	/**
      * Libere le pion contenu dedans
-     * @param pos la position la ou le pion contenu est libere
+	 * @param valPosAct - tableau correspondant à la position actuelle du pion
+	 * @param valPosDest - tableau correspondant à la position de destination du pion
      */
     private void liberer(int[] valPosAct, int [] valPosDest){
         int posActX = valPosAct[0];
@@ -233,6 +244,8 @@ public class Joueur{
 			this.damier[posActX][posActY] = null;
 		}
     }
+
+
 	/**
 	* Glisse un pion a une position choisi
 	*@param valPosAct : tableau correspondant à la pos actuelle choisi
@@ -249,13 +262,15 @@ public class Joueur{
 		this.damier[posDestX][posDestY] = tmp;
 	}
 
+
 	public int[][] auto(){
 		int[][] test = null;
 		return test;
 	}
 
+
 	private void message (int codeRetour) {
-		if (!(this instanceof IA)) {
+		if ((this instanceof IA)) {
 			if (codeRetour == 1) {
 				System.out.println("move() : La posAct est la même que la posDest <!>");
 			} else if (codeRetour == 2) {
@@ -271,8 +286,8 @@ public class Joueur{
 			} else if (codeRetour == 8) {
 				System.out.println("Glissement impossible <!>");
 			}
-
 		}
 	}
+
 
 }

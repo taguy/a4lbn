@@ -4,13 +4,16 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
 
+
 public class Utilitaire {
 
 	/**
-	 * Vérifie que les reponses de l'utilisateur sont valides et comprises entre deux bornes
+	 * Vérifie que les reponses de l'utilisateur sont valides, comprises entre deux bornes et ont une certaine longueur
 	 * @param a la premiere borne
 	 * @param b la seconde borne
-	 * @return l'entier si valide, -50 sinon
+	 * @param longueur la longueur voulu
+	 * @param message Le message de l'interaction utilisateur
+	 * @return l'entier
 	 */
 	public static String reponseUtilisateur(String message, int a, int b, int longueur) {
 		String ret = "-50";
@@ -61,7 +64,8 @@ public class Utilitaire {
 	}
 
 	/**
-	 * intToString retoune un tableau d'int correspondant a la position x et y
+	 * Retoune un tableau d'entiers correspondant a la position x et y
+	 * @param message Le message de l'interaction utilisateur
 	 * @return ret : le tableau  d'entiers
 	 */
 	 public static int[] stringToInt(String message){

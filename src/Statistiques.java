@@ -1,30 +1,32 @@
 package model;
 import controller.*;
+
 /**
  * Classe statistiques qui regroupe toutes les statistiques
  * d'un joueur durant son temps de jeu
- * @author Romain Precigout
  * @author Brice Laigo
- * @author Jonathan Bautista
  * @author Lorenzo Gerardi
  * @author Nguyen Nguyen
- * @version 1.0
  */
 public class Statistiques{
-	/** Nombre de parties jouée */
+	/** Nombre de parties jouées */
 	private int nbParties;
+
 	/** Nombres de victoires */
 	private int nbVictoires;
+
 	/** Nombre de pions mangés */
 	private int nbPionsMange;
+
 	/** Temps de jeu total */
 	private double tempsDeJeuTotal;
+
 	/** Joueur concerné */
 	private Joueur joueur;
 
 
 	/**
-	 * Constructeur de la classe Statistiques qui initialise les attributs
+	 * Constructeur de la classe Statistiques qui initialise les attributs pour création
 	 * @param joueur - le joueur a qui appartiennent les statistiques
 	 */
 	public Statistiques(Joueur joueur){
@@ -36,8 +38,12 @@ public class Statistiques{
 	}
 
 	/**
-	 * Constructeur de la classe Statistiques qui initialise les attributs
+	 * Constructeur de la classe Statistiques qui initialise les attributs après sauvegarde
 	 * @param joueur - le joueur a qui appartiennent les statistiques
+	 * @param nbParties le nombre de parties jouées par le joueur
+	 * @param nbVictoires Le nombre de victoires du joueur
+	 * @param nbPionsMange le nombre de pions mangés par le joueur
+	 * @param tempsDeJeuTotal Le temps de jeu du joueur
 	 */
 	public Statistiques(Joueur joueur, int nbParties, int nbVictoires, int nbPionsMange, double tempsDeJeuTotal){
 		if(joueur != null){
@@ -58,8 +64,8 @@ public class Statistiques{
 	}
 
 	/**
-	 *Imprime une version des statistiques pour en avoir un apercu
-	 *@return les statistiques en version chaine de caractère
+	 * Imprime une version des statistiques pour en avoir un apercu
+	 * @return les statistiques en version chaine de caractère
 	 */
 	public String toString(){
 		String stats ="Statistiques du joueur "+joueur.getNom() +"\n"+
@@ -74,57 +80,68 @@ public class Statistiques{
 
 	/**
 	 * Met a jour les statistiques du joueur
-	 * @param index - index de l'attribut a modifier
-	 * @param valeur - la valeur a ajouter
-	 */
+ 	 * @param nbParties le nombre de parties jouées à ajouter
+ 	 * @param nbVictoires Le nombre de victoires à ajouter
+ 	 * @param nbPionsMange le nombre de pions mangés à ajouter
+ 	 * @param tempsDeJeuTotal Le temps de jeu à ajouter
+ 	 */
 	 public void updateStat(int nbParties, int nbVictoires, int nbPionsMange, double tempsDeJeuTotal){
          if(nbVictoires >= 0){
-             this.nbVictoires = nbVictoires;
+             this.nbVictoires += nbVictoires;
              if(nbPionsMange >= 0){
-                 this.nbPionsMange = nbPionsMange;
+                 this.nbPionsMange += nbPionsMange;
                  if(tempsDeJeuTotal >= 0){
-                     this.tempsDeJeuTotal = tempsDeJeuTotal;
+                     this.tempsDeJeuTotal += tempsDeJeuTotal;
                      if(nbParties  >= 0){
-                         this.nbParties = nbParties;
-                     }else{System.out.println("(Update) Nombre de parties invalid");}
-                 }else{System.out.println("(Update) Temps de jeu invalid");}
-             }else{System.out.println("(Update) Nombre de pions mange invalid");}
-         }else{System.out.println("(Update) Nombre de victoires invalid");}
+                         this.nbParties += nbParties;
+                     }else{System.out.println("(Update) Nombre de parties invalide");}
+                 }else{System.out.println("(Update) Temps de jeu invalide");}
+             }else{System.out.println("(Update) Nombre de pions mange invalide");}
+         }else{System.out.println("(Update) Nombre de victoires invalide");}
      }
 
+
+	/**
+ 	 * Récupère le joueur concerné par ces statistiques
+ 	 * @return le joueur
+ 	 */
 	public Joueur getJoueur(){
 	   return this.joueur;
-   }
+   	}
+
 
 	/**
 	 * Récupère le nombre de parties jouées par le joueur
 	 * @return le nombre de parties jouées
 	 */
-	 public int getNbParties(){
+	public int getNbParties(){
 		return this.nbParties;
 	}
+
 
 	/**
 	 * Récupère le nombre de parties gagnées par le joueur
 	 * @return le nombre de parties gagnées
 	 */
-	 public int getNbVictoires(){
+	public int getNbVictoires(){
 		return this.nbVictoires;
 	}
+
 
 	/**
 	 * Récupère le nombre de pions mangés par le joueur
 	 * @return le nombre de pions mangés
 	 */
-	 public int getNbPionsMange(){
+	public int getNbPionsMange(){
 		return this.nbPionsMange;
 	}
+
 
 	/**
 	 * Récupère le temps de jeu total du joueur
 	 * @return le temps de jeu total du joueur
 	 */
-	 public double getNbTempsDeJeuTotal(){
+	public double getNbTempsDeJeuTotal(){
 		return this.tempsDeJeuTotal;
 	}
 }
