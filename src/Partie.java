@@ -4,7 +4,7 @@ import model.*;
 //import view.*;
 
 /**
- * Classe de modélisation d'une partie 
+ * Classe de modélisation d'une partie
  * @author L. GERARDI
  * @author B. LAIGO
  * @author N. NGUYEN
@@ -30,7 +30,7 @@ import model.*;
     private Joueur joueurB;
 
     /** Le joueur actuel */
-    private Joueur current;
+    private Joueur courant;
 
     /** Le damier contenant les pions */
     private Pion[][] damier;
@@ -60,7 +60,7 @@ import model.*;
            this.tours = 1;
 
            this.damier = new Pion[8][7];
-           this.current = joueurA;
+           this.courant = joueurA;
 
            initPions(joueurA);
            initPions(joueurB);
@@ -69,33 +69,7 @@ import model.*;
           System.out.println("Partie :Erreur les parmètres sont invalides ");
        }
    }
-
-   /**
-    * Le constructeur de la classe qui intialise les attributs après sauvegarde
-    * @param joueurA le 1er joueur
-    * @param joueurB le 2e joueur
-    * @param nom - le nom de la partie
-    * @param tours - le nombre de tours déjà passés
-    * @param scoreA - le score du joueur A
-    * @param scoreB -le score du joueur B
-    */
-   public Partie(Joueur joueurA, Joueur joueurB, String nom, int tours, int scoreA, int scoreB){
-     if(nom != null && joueurA != null && joueurB != null && tours > 0 && scoreA >= 0 && scoreB >= 0){
-           this.joueurA = joueurA;
-           this.joueurB = joueurB;
-           this.scoreA = scoreA;
-           this.scoreB = scoreB;
-           this.tours = tours;
-           this.nom = nom;
-
-           this.damier = new Pion[8][7];
-           this.current = joueurA;
-
-       }
-       else{
-         System.out.println("Partie : Erreur les parmètres sont invalides");
-       }
-   }
+   
 
    /**
     * Initialise les pions
@@ -137,6 +111,14 @@ import model.*;
     */
    public Joueur getJoueurB(){
        return this.joueurB;
+   }
+
+   /**
+    * Accesseur du joueur courant
+    * @return la classe Joueur qui represente le joueur courant
+    */
+   public Joueur getJoueurCourant(){
+       return this.courant;
    }
 
 
@@ -184,7 +166,7 @@ import model.*;
 	 * Ajoute des points de score au joueur A
 	 * @param points - les points à ajouter
 	 */
-	void addPointsA(int points){
+	private void addPointsA(int points){
         this.scoreA += points;
 	}
 
@@ -192,10 +174,17 @@ import model.*;
 	 * Ajoute des points de score au joueur B
 	 * @param points - les points à ajouter
 	 */
-	void addPointsB(int points){
+	private void addPointsB(int points){
         this.scoreB += points;
-
 	}
+
+    /**
+     * Récupère la condition de fin de Partie
+     * @return vrai si la partie est finie, faux sinon
+     */
+    public boolean getFinDuJeu() {
+        return this.finDuJeu();
+    }
 
   /**
   */
@@ -232,12 +221,12 @@ import model.*;
 
 
          do {
-            System.out.println (this.current.getNom() + " Sensei a toi de jouer ! \ntapez 'exit' pour sortir");
+            System.out.println (this.courant.getNom() + " Sensei a toi de jouer ! \ntapez 'exit' pour sortir");
 
             System.out.println(this);
 
-            if (this.current instanceof IA) {
-                int[][] tab = this.current.auto();
+            if (this.courant instanceof IA) {
+                int[][] tab = this.courant.auto();
                 posAct[0] = tab[0][0];
                 posAct[1] = tab[0][1];
 
@@ -253,17 +242,17 @@ import model.*;
                 break;
             }
 
-            if (this.current instanceof IA) {
-                tmp = this.current.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
+            if (this.courant instanceof IA) {
+                tmp = this.courant.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
             }else {
-                tmp = this.current.verifDeplacement(posAct,posDest);
+                tmp = this.courant.verifDeplacement(posAct,posDest);
             }
 
             if (tmp == 0) {
-                if (this.current == this.joueurA) {
-                    this.current = this.joueurB;
+                if (this.courant == this.joueurA) {
+                    this.courant = this.joueurB;
                 } else {
-                    this.current = this.joueurA;
+                    this.courant = this.joueurA;
                     this.tours++;
                 }
             }
@@ -272,14 +261,14 @@ import model.*;
         } while (!this.finDuJeu());
 
             if (posAct[0] != -1 && posDest[0] != -1) {
-                if (this.current == joueurA) {
-                    this.current = joueurB;
+                if (this.courant == joueurA) {
+                    this.courant = joueurB;
                 } else {
-                    this.current = joueurA;
+                    this.courant = joueurA;
                 }
 
                 System.out.println(this);
-                System.out.println(this.current.getNom()+" a gagné");
+                System.out.println(this.courant.getNom()+" a gagné");
             }
 	  }
 
@@ -322,7 +311,7 @@ import model.*;
 
               if (this.damier[x][y] != null){
 
-                  if (this.damier[x][y].getJoueur() == this.current){
+                  if (this.damier[x][y].getJoueur() == this.courant){
                       ret += this.damier[x][y]+"(1er)";
 
                       if (this.damier[x][y].getContenu() != null){

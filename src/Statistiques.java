@@ -2,13 +2,13 @@ package model;
 import controller.*;
 
 /**
- * Classe statistiques qui regroupe toutes les statistiques 
+ * Classe statistiques qui regroupe toutes les statistiques
  * d'un joueur durant son temps de jeu
  * @author Brice Laigo
  * @author Lorenzo Gerardi
  * @author Nguyen Nguyen
  */
-public class Statistiques{
+public class Statistiques implements java.io.Serializable {
 	/** Nombre de parties jouées */
 	private int nbParties;
 
@@ -37,31 +37,6 @@ public class Statistiques{
 		}
 	}
 
-	/**
-	 * Constructeur de la classe Statistiques qui initialise les attributs après sauvegarde
-	 * @param joueur - le joueur a qui appartiennent les statistiques
-	 * @param nbParties le nombre de parties jouées par le joueur
-	 * @param nbVictoires Le nombre de victoires du joueur
-	 * @param nbPionsMange le nombre de pions mangés par le joueur
-	 * @param tempsDeJeuTotal Le temps de jeu du joueur
-	 */
-	public Statistiques(Joueur joueur, int nbParties, int nbVictoires, int nbPionsMange, double tempsDeJeuTotal){
-		if(joueur != null){
-			this.joueur = joueur;
-			if(nbVictoires >= 0){
-				this.nbVictoires = nbVictoires;
-				if(nbPionsMange >= 0){
-					this.nbPionsMange = nbPionsMange;
-					if(tempsDeJeuTotal >= 0){
-						this.tempsDeJeuTotal = tempsDeJeuTotal;
-						if(nbParties  >= 0){
-							this.nbParties = nbParties;
-						}else{System.out.println("Nombre de parties invalid");}
-					}else{System.out.println("Temps de jeu invalid");}
-				}else{System.out.println("Nombre de pions mange invalid");}
-			}else{System.out.println("Nombre de victoires invalid");}
-		}else{System.out.println("Joueur invalid");}
-	}
 
 	/**
 	 * Imprime une version des statistiques pour en avoir un apercu
@@ -85,7 +60,7 @@ public class Statistiques{
  	 * @param nbPionsMange le nombre de pions mangés à ajouter
  	 * @param tempsDeJeuTotal Le temps de jeu à ajouter
  	 */
-	 public void updateStat(int nbParties, int nbVictoires, int nbPionsMange, double tempsDeJeuTotal){
+	 public void updateStats(int nbParties, int nbVictoires, int nbPionsMange, double tempsDeJeuTotal){
          if(nbVictoires >= 0){
              this.nbVictoires += nbVictoires;
              if(nbPionsMange >= 0){

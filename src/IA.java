@@ -57,9 +57,10 @@ public class IA extends Joueur{
 		for (int i = 0; i < 8; i++) {
 			if (this.verifPosDestination(posAct[0], posAct[1], nouvelleposDest[i][0], nouvelleposDest[i][1])) {
 				if ((nouvelleposDest[i][0] >= 0 && nouvelleposDest[i][1] >= 0) && (nouvelleposDest[i][0] <this.getDamier().length && nouvelleposDest[i][1] < this.getDamier()[0].length)) {
+					tmp = new int[2];
 					tmp[0] = nouvelleposDest[i][0];
 					tmp[1] = nouvelleposDest[i][1];
-//System.out.println("PosAct" + "tmp " + tmp[0] + " " + tmp[1]);
+
 					listePosDest.add(tmp);
 				}
 			}
@@ -93,20 +94,22 @@ public class IA extends Joueur{
 			while (j < 7 && nb < 12) {
 
 				if (damier[i][j] != null && damier[i][j].getJoueur() == this) {
+					nb++;
+
+					posAct = new int[2];
 					posAct[0] = i;
 					posAct[1] = j;
+
 					listePosAct.add(posAct);
 					if (damier[i][j].getContenu() != null && damier[i][j].getContenu().getJoueur() == this) {
+						nb++;
 						if (damier[i][j].getContenu().getContenu() != null && damier[i][j].getContenu().getContenu().getJoueur() == this) {
+							nb++;
 							if (damier[i][j].getContenu().getContenu().getContenu() != null && damier[i][j].getContenu().getContenu().getContenu().getJoueur() == this) {
-
 								nb++;
 							}
-							nb++;
 						}
-						nb++;
 					}
-					nb++;
 				}
 				j++;
 			}
@@ -114,7 +117,6 @@ public class IA extends Joueur{
 		}
 
 		i = (int) (Math.random() * listePosAct.size());
-System.out.println("Random : " + i);
 		posAct = listePosAct.get(i);
 
 		return posAct;

@@ -47,7 +47,7 @@ public class Lanceur{
 	 */
 	public static void menu() {
 
-		if (Utilitaire.reponseUtilisateur("\nBienvenue dans le jeu projetZ !\n Tapez '1' si vous voulez jouer en mode graphique, Tapez '2' sinon\n puis tapez Entree\n", 1, 2, 1).equals("1")) {
+		if (Utilitaire.reponseUtilisateur("\nBienvenue dans le jeu Arcanor !\n Tapez '1' si vous voulez jouer en mode graphique, Tapez '2' sinon\n puis tapez Entree\n", 1, 2, 1).equals("1")) {
 			graphique = true;
 		}
 
@@ -61,6 +61,7 @@ public class Lanceur{
 
 	/**
 	* Créé la partie et charge les joueurs
+	* @return la partie créée
 	*/
    	private static Partie choixPartie() {
 		Partie ret = null;
@@ -91,10 +92,7 @@ public class Lanceur{
 				Joueur joueurA = choixJoueur();
 			   	Joueur joueurB = choixJoueur();
 
-				lesJoueurs.add(joueurA);
-				lesJoueurs.add(joueurB);
-
-			   	ret = new Partie(lesJoueurs.get(lesJoueurs.size()-2), lesJoueurs.get(lesJoueurs.size()-1), reponse);
+			   	ret = new Partie(joueurA, joueurB, reponse);
 
 				ret.getJoueurA().setDamier(ret.getDamier());
 				ret.getJoueurB().setDamier(ret.getDamier());
@@ -123,11 +121,52 @@ public class Lanceur{
 			System.exit(0);
 		}
 
-		if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder, 2 sinon", 1, 2, 1).equals(1)) {
+		//si IA vs IA et partie finie, pas de sauvegarde (pas d'ajout aux statistiques)
+		if (lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA && lesParties.get(lesParties.size()-1).getJoueurB() instanceof IA && lesParties.get(lesParties.size()-1).getFinDuJeu()) {
 			lesParties.remove(lesParties.size()-1);
 
-			lesJoueurs.remove(lesJoueurs.size()-1);
-			lesJoueurs.remove(lesJoueurs.size()-1);
+
+		} else {
+			//Pas de sauvegarde des IA et pas de sauvegardes inutiles
+			if (!(lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA) && Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurA() + ", 2 sinon", 1, 2, 1).equals("1") && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
+				lesJoueurs.add(lesParties.get(lesParties.size()-1).getJoueurA());
+			}
+
+			//Pas de sauvegarde des IA et pas de sauvegardes inutiles
+			if (!(lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA) && Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurB() + ", 2 sinon", 1, 2, 1).equals("1") && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
+				lesJoueurs.add(lesParties.get(lesParties.size()-1).getJoueurB());
+			}
+
+			//si partie pas finie, on demande si on veut supprimer la partie (pas d'ajout aux statistiques)
+			if (!lesParties.get(lesParties.size()-1).getFinDuJeu()) {
+				if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder, 2 sinon", 1, 2, 1).equals("2")) {
+					lesParties.remove(lesParties.size()-1);
+				}
+			} else {
+				int i = 0;
+				int nb = 0;
+				while (i < lesStats.size()  && nb < 2) {
+					if (lesStats.get(i).getJoueur().getNom().equals(lesParties.get(lesParties.size()-1).getJoueurA().getNom())) {
+						nb++;
+
+						//Si vainqueur
+						int j = 0;
+						if (lesParties.get(lesParties.size()-1).getJoueurA() == lesParties.get(lesParties.size()-1).getJoueurCourant()) {
+							j = 1;
+						}
+						//lesStats.get(i).updateStats(1, j)
+					} else if (lesStats.get(i).getJoueur().getNom().equals(lesParties.get(lesParties.size()-1).getJoueurB().getNom())) {
+						nb++;
+
+						//Si vainqueur
+						int j = 0;
+						if (lesParties.get(lesParties.size()-1).getJoueurA() == lesParties.get(lesParties.size()-1).getJoueurCourant()) {
+							j = 1;
+						}
+						//lesStats.get(i).updateStats(1, j)
+					}
+				}
+			}
 		}
 
 		Sauvegarde.sauveLesParties(lesParties);
