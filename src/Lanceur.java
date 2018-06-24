@@ -96,7 +96,8 @@ public class Lanceur{
 
 
 	/**
-	 * Permer de choisir les joueurs sauvegardés ou de créer un joueur
+	 * Permet de choisir les joueurs sauvegardés ou de créer un joueur
+	 * @return le joueur choisi
 	 */
 	private static Joueur choixJoueur() {
 		Joueur ret = null;

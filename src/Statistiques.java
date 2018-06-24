@@ -43,7 +43,7 @@ public class Statistiques{
 	 * @param nbParties le nombre de parties jouées par le joueur
 	 * @param nbVictoires Le nombre de victoires du joueur
 	 * @param nbPionsMange le nombre de pions mangés par le joueur
-	 * @param le temps de jeu du joueur
+	 * @param tempsDeJeuTotal Le temps de jeu du joueur
 	 */
 	public Statistiques(Joueur joueur, int nbParties, int nbVictoires, int nbPionsMange, double tempsDeJeuTotal){
 		if(joueur != null){
@@ -83,7 +83,7 @@ public class Statistiques{
  	 * @param nbParties le nombre de parties jouées à ajouter
  	 * @param nbVictoires Le nombre de victoires à ajouter
  	 * @param nbPionsMange le nombre de pions mangés à ajouter
- 	 * @param le temps de jeu à ajouter
+ 	 * @param tempsDeJeuTotal Le temps de jeu à ajouter
  	 */
 	 public void updateStat(int nbParties, int nbVictoires, int nbPionsMange, double tempsDeJeuTotal){
          if(nbVictoires >= 0){

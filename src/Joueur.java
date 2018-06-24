@@ -67,8 +67,8 @@ public class Joueur implements java.io.Serializable {
 
 	/**
 	 * vérifie l'etat du damier pour informer la methodes deplacer
-	 * @param posAct - tableau correspondant à la position actuelle du pion
-	 * @param posDest - tableau correspondant à la position de destination du pion
+	 * @param valPosAct - tableau correspondant à la position actuelle du pion
+	 * @param valPosDest - tableau correspondant à la position de destination du pion
 	 * @return un numero d'erreur si erreur il y a, 0 sinon
 	 */
 	public int verifDeplacement(int[] valPosAct, int [] valPosDest) {
@@ -78,8 +78,9 @@ public class Joueur implements java.io.Serializable {
 
 	/**
 	 * vérifie l'etat du damier pour informer la methodes deplacer
-	 * @param posAct - tableau correspondant à la position actuelle du pion
-	 * @param posDest - tableau correspondant à la position de destination du pion
+	 * @param valPosAct - tableau correspondant à la position actuelle du pion
+	 * @param valPosDest - tableau correspondant à la position de destination du pion
+	 * @param liberer booleen destiné à l'IA, vrai si l'IA décapsule, faux sinon
 	 * @return un numero d'erreur si erreur il y a, 0 sinon
 	 */
 	public int verifDeplacement(int[] valPosAct, int [] valPosDest, boolean liberer){
@@ -160,8 +161,8 @@ public class Joueur implements java.io.Serializable {
 	/**
 	* vérifie que le déplacemment respecte les règles du jeu arcanor
 	* @param posActX : la pos actuelle du pion en X
-	* @param posDestY : la pos actuelle du pion en Y
-	* @param posActcX : la pos destination à vérifier en X
+	* @param posActY : la pos actuelle du pion en Y
+	* @param posDestX : la pos destination à vérifier en X
 	* @param posDestY : la pos destination à vérifier en Y
 	* @return ret : vrai si la position est bonne ou faux si la position n'est pas bonne
 	*/
@@ -180,8 +181,8 @@ public class Joueur implements java.io.Serializable {
 	/**
 	 * Bouge le pion de la position où il se situe vers la position souhaitée
 	 * en laissant son contenu sur place si le cas se présente
-	 * @param posAct - tableau correspondant à la position actuelle du pion
-	 * @param posDest - tableau correspondant à la position de destination du pion
+	 * @param valPosAct - tableau correspondant à la position actuelle du pion
+	 * @param valPosDest - tableau correspondant à la position de destination du pion
 	 * @return un numero d'erreur si erreur il y a, 0 sinon
 	 */
 	int manger(int[] valPosAct, int [] valPosDest){ //code a verifier
@@ -223,7 +224,8 @@ public class Joueur implements java.io.Serializable {
 
 	/**
      * Libere le pion contenu dedans
-     * @param pos la position la ou le pion contenu est libere
+	 * @param valPosAct - tableau correspondant à la position actuelle du pion
+	 * @param valPosDest - tableau correspondant à la position de destination du pion
      */
     private void liberer(int[] valPosAct, int [] valPosDest){
         int posActX = valPosAct[0];

@@ -12,6 +12,7 @@ public class Utilitaire {
 	 * @param a la premiere borne
 	 * @param b la seconde borne
 	 * @param longueur la longueur voulu
+	 * @param message Le message de l'interaction utilisateur
 	 * @return l'entier
 	 */
 	public static String reponseUtilisateur(String message, int a, int b, int longueur) {
@@ -64,6 +65,7 @@ public class Utilitaire {
 
 	/**
 	 * Retoune un tableau d'entiers correspondant a la position x et y
+	 * @param message Le message de l'interaction utilisateur
 	 * @return ret : le tableau  d'entiers
 	 */
 	 public static int[] stringToInt(String message){

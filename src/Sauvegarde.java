@@ -27,6 +27,7 @@ public class Sauvegarde {
 
     /**
      * Extrait les lignes contenues dans un fichier
+     * @param fileName le fichier dont on extrait le contenu
      * @return Un ArrayList de String contenant les lignes
      */
     private static ArrayList<String> extraire(String fileName) {
