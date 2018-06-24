@@ -24,8 +24,22 @@ public class Lanceur{
 	public static void main(String[] args){
 		init();
 		menu();
-		scenario();
 	}
+
+	/**
+	 * Initialise les ArrayList avec les parties, joueurs et statistiques sauvegardées
+	 */
+	private static void init() {
+		lesParties = new ArrayList<Partie>(0);
+		Sauvegarde.initLesParties(lesParties);
+
+		lesJoueurs = new ArrayList<Joueur>(0);
+		Sauvegarde.initLesJoueurs(lesJoueurs);
+
+		lesStats = new ArrayList<Statistiques>(0);
+		Sauvegarde.initLesStats(lesStats);
+	}
+
 
 	/**
 	 * Menu appelé par le main.
@@ -37,17 +51,10 @@ public class Lanceur{
 			graphique = true;
 		}
 
-		if (!graphique) {
-			if (Utilitaire.reponseUtilisateur("\nTapez '1' si vous voulez creer une partie, Tapez '2' si vous voulez charger une partie\n puis tapez Entree\n", 1, 2, 1).equals("1")) {
-				creerPartie();
-			} else {
-				for (int i = 0; i < lesParties.size(); i++) {
-					System.out.println(i + " " + lesParties.get(i).getJoueurA().getNom() + " " + lesParties.get(i).getJoueurB().getNom() + " " + lesParties.get(i).getNom() + " " + lesParties.get(i).getTours() + " " + lesParties.get(i).getScoreA() + " " + lesParties.get(i).getScoreB());
-				}
-
-				String reponse = Utilitaire.reponseUtilisateur("\nEntrez le numero de la partie voulue\n puis tapez Entree\n",0, (lesParties.size()-1), ((lesParties.size()-1)+"").length());
-				lesParties.get(Integer.parseInt(reponse));
-			}
+		if (graphique) {
+			//code de Lorenzo
+		} else {
+			console();
 		}
 	}
 
@@ -55,32 +62,66 @@ public class Lanceur{
 	/**
 	* Créé la partie et charge les joueurs
 	*/
-   	private static void creerPartie() {
-	   	Scanner in = new Scanner(System.in);
-	   		String reponse = "";
+   	private static Partie choixPartie() {
+		Partie ret = null;
+		Scanner in = new Scanner(System.in);
+		String reponse = "";
 
- 	   	System.out.println("\nChoisssez un nom de partie :\n");
-	   	reponse = in.nextLine();
+		for (int i = 0; i < lesParties.size(); i++) {
+			System.out.println(i + " " + lesParties.get(i).getJoueurA().getNom() + " " + lesParties.get(i).getJoueurB().getNom() + " " + lesParties.get(i).getNom() + " " + lesParties.get(i).getTours() + " " + lesParties.get(i).getScoreA() + " " + lesParties.get(i).getScoreB());
+		}
+		System.out.println("\n" + lesParties.size() + " Nouvelle Partie");
 
-	   	Joueur joueurA = choixJoueur();
-	   	Joueur joueurB = choixJoueur();
+		reponse = Utilitaire.reponseUtilisateur("\nEntrez le numero de la partie voulue\n puis tapez Entree\n",0, lesParties.size(), (lesParties.size()+"").length());
 
-	   	lesJoueurs.add(joueurA);
-	   	lesJoueurs.add(joueurB);
+		if (reponse.equals(lesParties.size()+"")) {
+			boolean check = false;
+			do {
+				System.out.println("\nEntrez le nom de la partie\n puis tapez Entree\n");
+				reponse = in.nextLine();
 
+				if (reponse.length() < 2) {
+					System.out.println("reponse nulle ou trop petite");
+				} else {
+					check = true;
+				}
+			} while (!check);
 
-	   	lesParties.add(new Partie(lesJoueurs.get(lesJoueurs.size()-2), lesJoueurs.get(lesJoueurs.size()-1), reponse));
+			if (reponse != null && reponse.length() > 1) {
+				Joueur joueurA = choixJoueur();
+			   	Joueur joueurB = choixJoueur();
 
-	   	lesParties.get(lesParties.size()-1).getJoueurA().setDamier(lesParties.get(lesParties.size()-1).getDamier());
-	   	lesParties.get(lesParties.size()-1).getJoueurB().setDamier(lesParties.get(lesParties.size()-1).getDamier());
+				lesJoueurs.add(joueurA);
+				lesJoueurs.add(joueurB);
+
+			   	ret = new Partie(lesJoueurs.get(lesJoueurs.size()-2), lesJoueurs.get(lesJoueurs.size()-1), reponse);
+
+				ret.getJoueurA().setDamier(ret.getDamier());
+				ret.getJoueurB().setDamier(ret.getDamier());
+			} else {
+
+				ret = null;
+			}
+		} else {
+			ret = lesParties.get(Integer.parseInt(reponse));
+		}
+
+		return ret;
    	}
 
 
 	/**
 	 * Permet de joueur après avoir initialisé les joueurs et la partie
 	 */
-	public static void scenario(){
-    	lesParties.get(lesParties.size()-1).jouer();
+	public static void console(){
+		Partie p = choixPartie();
+
+		if (p != null) {
+			lesParties.add(p);
+			lesParties.get(lesParties.size()-1).jouer();
+		} else {
+			System.exit(0);
+		}
 
 		if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder, 2 sinon", 1, 2, 1).equals(1)) {
 			lesParties.remove(lesParties.size()-1);
@@ -117,26 +158,35 @@ public class Lanceur{
  			reponse = Utilitaire.reponseUtilisateur("\nEntrez le numero du joueur voulu\n puis tapez Entree\n",0, (lesJoueurs.size()+1), ((lesJoueurs.size()+1)+"").length());
 
  			if (reponse.equals(lesJoueurs.size()+"")) {
- 				System.out.println("\nEntrez votre nom du joueur\n puis tapez Entree\n");
- 				reponse = in.nextLine();
- 				if (reponse != null && reponse.length() > 1) {
- 					ret = new Joueur(reponse);
- 				} else {
- 					System.out.println("reponse nulle ou trop petite");
+				boolean check = false;
+				do {
+					System.out.println("\nEntrez le nom du joueur\n puis tapez Entree\n");
+					reponse = in.nextLine();
 
- 					ret = null;
- 				}
+					if (reponse.length() < 2) {
+						System.out.println("reponse nulle ou trop petite");
+					} else {
+						check = true;
+					}
+				} while (!check);
+
+ 				ret = new Joueur(reponse);
+
  			} else if (reponse.equals((lesJoueurs.size()+1)+"")) {
- 				System.out.println("\nEntrez votre nom de l'IA\n puis tapez Entree\n");
- 				reponse = in.nextLine();
+				boolean check = false;
+				do {
+					System.out.println("\nEntrez le nom de l'IA\n puis tapez Entree\n");
+					reponse = in.nextLine();
 
- 				if (reponse != null && reponse.length() > 1) {
- 						ret = new IA(reponse);
- 				} else {
- 						System.out.println("reponse nulle ou trop petite");
+					if (reponse.length() < 2) {
+						System.out.println("reponse nulle ou trop petite");
+					} else {
+						check = true;
+					}
+				} while (!check);
 
- 						ret = null;
- 				}
+ 				ret = new IA(reponse);
+
  			} else {
  				ret = lesJoueurs.get(Integer.parseInt(reponse));
  				lesJoueurs.remove(Integer.parseInt(reponse));
@@ -145,20 +195,5 @@ public class Lanceur{
  		} while (ret == null);
 
  		return ret;
-	}
-
-
-	/**
-	 * Initialise les ArrayList avec les parties, joueurs et statistiques sauvegardées
-	 */
-	private static void init() {
-		lesParties = new ArrayList<Partie>(0);
-		Sauvegarde.initLesParties(lesParties);
-
-		lesJoueurs = new ArrayList<Joueur>(0);
-		Sauvegarde.initLesJoueurs(lesJoueurs);
-
-		lesStats = new ArrayList<Statistiques>(0);
-		Sauvegarde.initLesStats(lesStats);
 	}
 }

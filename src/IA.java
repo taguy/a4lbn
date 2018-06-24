@@ -59,7 +59,7 @@ public class IA extends Joueur{
 				if ((nouvelleposDest[i][0] >= 0 && nouvelleposDest[i][1] >= 0) && (nouvelleposDest[i][0] <this.getDamier().length && nouvelleposDest[i][1] < this.getDamier()[0].length)) {
 					tmp[0] = nouvelleposDest[i][0];
 					tmp[1] = nouvelleposDest[i][1];
-System.out.println("PosAct" + "tmp " + tmp[0] + " " + tmp[1]);
+//System.out.println("PosAct" + "tmp " + tmp[0] + " " + tmp[1]);
 					listePosDest.add(tmp);
 				}
 			}
@@ -95,7 +95,7 @@ System.out.println("PosAct" + "tmp " + tmp[0] + " " + tmp[1]);
 				if (damier[i][j] != null && damier[i][j].getJoueur() == this) {
 					posAct[0] = i;
 					posAct[1] = j;
-
+System.out.println("PosAct" + " " +posAct[0] + " " + posAct[1]);
 					listePosAct.add(posAct);
 					if (damier[i][j].getContenu() != null && damier[i][j].getContenu().getJoueur() == this) {
 						if (damier[i][j].getContenu().getContenu() != null && damier[i][j].getContenu().getContenu().getJoueur() == this) {
