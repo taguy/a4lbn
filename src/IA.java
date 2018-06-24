@@ -95,7 +95,6 @@ public class IA extends Joueur{
 				if (damier[i][j] != null && damier[i][j].getJoueur() == this) {
 					posAct[0] = i;
 					posAct[1] = j;
-System.out.println("PosAct" + " " +posAct[0] + " " + posAct[1]);
 					listePosAct.add(posAct);
 					if (damier[i][j].getContenu() != null && damier[i][j].getContenu().getJoueur() == this) {
 						if (damier[i][j].getContenu().getContenu() != null && damier[i][j].getContenu().getContenu().getJoueur() == this) {
@@ -115,7 +114,7 @@ System.out.println("PosAct" + " " +posAct[0] + " " + posAct[1]);
 		}
 
 		i = (int) (Math.random() * listePosAct.size());
-
+System.out.println("Random : " + i)
 		posAct = listePosAct.get(i);
 
 		return posAct;
