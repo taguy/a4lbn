@@ -17,7 +17,7 @@ public class IA extends Joueur{
 	}
 
 	/**
-	 * Methode permettant à un joueur IA de jouer 
+	 * Methode permettant à un joueur IA de jouer
 	 * @return La position actuelle choisie et la position destination
 	 */
 	public int[][] auto(){
@@ -114,7 +114,7 @@ public class IA extends Joueur{
 		}
 
 		i = (int) (Math.random() * listePosAct.size());
-System.out.println("Random : " + i)
+System.out.println("Random : " + i);
 		posAct = listePosAct.get(i);
 
 		return posAct;
