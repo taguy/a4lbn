@@ -1,3 +1,0 @@
-../files/lesParties/test.txt
-../files/lesParties/aloo.txt
-../files/lesParties/testSAUVE.txt

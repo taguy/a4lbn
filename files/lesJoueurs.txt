@@ -1,2 +1,0 @@
-../files/lesJoueurs.txtAA.txt
-../files/lesJoueurs.txtBB.txt
