@@ -17,7 +17,7 @@ public class IA extends Joueur{
 	}
 
 	/**
-	 * Methode permettant à un joueur IA de jouer
+	 * Methode permettant à un joueur IA de jouer 
 	 * @return La position actuelle choisie et la position destination
 	 */
 	public int[][] auto(){

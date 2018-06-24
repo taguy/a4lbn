@@ -6,7 +6,7 @@ import java.util.StringTokenizer;
 import java.io.*;
 
 /**
- * Classe servant à la sauvegarde des joueurs, des parties et des statistiques
+ * Classe servant à la sauvegarde des joueurs, des parties et des statistiques 
  * @author L. GERARDI
  * @author B. LAIGO
  * @author N. NGUYEN

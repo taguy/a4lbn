@@ -1,6 +1,6 @@
 package controller;
 /**
- * Classe de la modelisation d'un pion
+ * Classe de la modelisation d'un pion 
  * @author L. GERARDI
  * @author B. LAIGO
  * @author N. NGUYEN

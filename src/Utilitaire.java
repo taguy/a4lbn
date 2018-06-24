@@ -8,7 +8,7 @@ import java.io.*;
 public class Utilitaire {
 
 	/**
-	 * Vérifie que les reponses de l'utilisateur sont valides, comprises entre deux bornes et ont une certaine longueur
+	 * Vérifie que les reponses de l'utilisateur sont valides, comprises entre deux bornes et ont une certaine longueur 
 	 * @param a la premiere borne
 	 * @param b la seconde borne
 	 * @param longueur la longueur voulu

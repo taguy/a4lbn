@@ -2,7 +2,7 @@ package model;
 import controller.*;
 
 /**
- * Classe statistiques qui regroupe toutes les statistiques
+ * Classe statistiques qui regroupe toutes les statistiques 
  * d'un joueur durant son temps de jeu
  * @author Brice Laigo
  * @author Lorenzo Gerardi

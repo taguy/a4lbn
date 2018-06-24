@@ -19,7 +19,7 @@ public class Joueur implements java.io.Serializable {
 
 
 	/**
-	 * Constructeur de la classe joueur qui initialise
+	 * Constructeur de la classe joueur qui initialise 
 	 * ses attributs pour créer un objet joueur
 	 * @param nom - le nom du joueur (ou pseudo)
 	 */

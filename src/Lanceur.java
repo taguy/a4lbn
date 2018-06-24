@@ -3,7 +3,7 @@ import controller.*;
 import java.util.*;
 import java.io.*;
 /**
- * Classe lanceur qui lance le jeu projetZ
+ * Classe lanceur qui lance le jeu Arcanor
  * @author Brice Laigo
  * @author Lorenzo Gerardi
  * @author Nguyen Nguyen

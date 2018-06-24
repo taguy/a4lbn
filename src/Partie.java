@@ -4,7 +4,7 @@ import model.*;
 //import view.*;
 
 /**
- * Classe de modélisation d'une partie
+ * Classe de modélisation d'une partie 
  * @author L. GERARDI
  * @author B. LAIGO
  * @author N. NGUYEN
