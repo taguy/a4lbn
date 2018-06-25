@@ -25,7 +25,6 @@ public class Lanceur{
 	public static void main(String[] args){
 		init();
 		menu();
-		sauveTout();
 	}
 
 	/**
@@ -56,6 +55,7 @@ public class Lanceur{
 			DebutAnimation debut = new DebutAnimation();
 		} else {
 			console();
+			sauveTout();
 		}
 	}
 
