@@ -126,7 +126,6 @@ public class Lanceur{
 		if (lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA && lesParties.get(lesParties.size()-1).getJoueurB() instanceof IA && lesParties.get(lesParties.size()-1).getFinDuJeu()) {
 			lesParties.remove(lesParties.size()-1);
 
-
 		} else {
 			//Pas de sauvegarde des IA et pas de sauvegardes inutiles
 			if (!(lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA) && Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurA() + ", 2 sinon", 1, 2, 1).equals("1") && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
@@ -134,7 +133,7 @@ public class Lanceur{
 			}
 
 			//Pas de sauvegarde des IA et pas de sauvegardes inutiles
-			if (!(lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA) && Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurB() + ", 2 sinon", 1, 2, 1).equals("1") && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
+			if (!(lesParties.get(lesParties.size()-1).getJoueurB() instanceof IA) && Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurB() + ", 2 sinon", 1, 2, 1).equals("1") && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
 				lesJoueurs.add(lesParties.get(lesParties.size()-1).getJoueurB());
 			}
 
