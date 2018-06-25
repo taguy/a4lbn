@@ -221,10 +221,9 @@ public class PanelNouvellePartie{
                     //PlateauDeJeu plateau = new PlateauDeJeu(lesParties.get(lesParties.size()-1), controleurGlobal);
                 //}
             //});
-            plateau = new PlateauDeJeu(lesParties.get(lesParties.size()-1), this.controleurGlobal);
             lesParties.get(lesParties.size()-1).getJoueurA().setDamier(lesParties.get(lesParties.size()-1).getDamier());
             lesParties.get(lesParties.size()-1).getJoueurB().setDamier(lesParties.get(lesParties.size()-1).getDamier());
-            lesParties.get(lesParties.size()-1).jouer();
+            lesParties.get(lesParties.size()-1).jouer(this.controleurGlobal);
 
 
     }

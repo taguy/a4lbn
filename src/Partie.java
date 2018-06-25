@@ -221,7 +221,6 @@ import view.*;
 	/**
 	 * Joue un tour de jeu
 	 */
-
 	public void jouer(){
         int[] posAct = new int[2];
         int[] posDest = new int[2];
@@ -279,6 +278,67 @@ import view.*;
                 System.out.println(this.courant.getNom()+" a gagné");
             }
 	  }
+
+
+        /**
+    	 * Joue un tour de jeu
+    	 */
+    	public void jouer(ControleurGlobal c){
+            Partie p = this;
+            PlateauDeJeu plateau;
+
+            javax.swing.SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    plateau = new PlateauDeJeu(p, c);
+                }
+            });
+
+            int[] posAct = new int[2];
+            int[] posDest = new int[2];
+            int tmp = -50;
+
+            plateau.rafraichir();
+
+             do {
+                if (this.courant instanceof IA) {
+                    int[][] tab = this.courant.auto();
+                    posAct[0] = tab[0][0];
+                    posAct[1] = tab[0][1];
+
+                    posDest[0] = tab[1][0];
+                    posDest[1] = tab[1][1];
+
+                 } else {
+                     do {
+                        posAct = plateau.getPos();
+                    } while (posAct == null);
+
+                    do {
+                       posDest = plateau.getPos();
+                   } while (posDest == null && (posDest[0] == posAct[0] && posDest[1] == posAct[1]));
+                }
+
+
+                if (this.courant instanceof IA) {
+                    tmp = this.courant.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
+                }else {
+                    tmp = this.courant.verifDeplacement(posAct,posDest);
+                }
+
+                if (tmp == 0) {
+                    plateau.rafraichir();
+
+                    if (this.courant == this.joueurA) {
+                        this.courant = this.joueurB;
+                    } else {
+                        this.courant = this.joueurA;
+                        this.tours++;
+                    }
+                }
+
+                    this.posFin();
+            } while (!this.finDuJeu());
+        }
 
 
 	/**
