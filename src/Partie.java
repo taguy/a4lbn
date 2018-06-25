@@ -35,14 +35,14 @@ import model.*;
     /** Le damier contenant les pions */
     private Pion[][] damier;
 
+    /** Le temps de jeu */
+    private double tempsDeJeu;
+
     /** Le score Maximale */
     private final int SCOREMAX = 12;
 
-    private Statistiques statsJoueurA;
-
-    private Statistiques statsJoueurB;
-
     //private PlateauDeJeu plateau;
+
 
    /**
     * Le constructeur de la classe qui intialise les attributs pour création de l'objet
@@ -57,6 +57,7 @@ import model.*;
            this.joueurB = joueurB;
            this.scoreA = 0;
            this.scoreB = 0;
+           this.tempsDeJeu = 0;
            this.tours = 1;
 
            this.damier = new Pion[8][7];
@@ -69,7 +70,7 @@ import model.*;
           System.out.println("Partie :Erreur les parmètres sont invalides ");
        }
    }
-   
+
 
    /**
     * Initialise les pions
@@ -112,6 +113,7 @@ import model.*;
    public Joueur getJoueurB(){
        return this.joueurB;
    }
+
 
    /**
     * Accesseur du joueur courant
@@ -162,7 +164,15 @@ import model.*;
 		return this.scoreB;
 	}
 
-	   /**
+    /**
+     * Retourne le temps de jeu
+     * @return le temps de jeu
+     */
+    public double getTempsDeJeu() {
+        return this.tempsDeJeu;
+    }
+
+   /**
 	 * Ajoute des points de score au joueur A
 	 * @param points - les points à ajouter
 	 */

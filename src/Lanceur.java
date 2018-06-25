@@ -154,16 +154,16 @@ public class Lanceur{
 						if (lesParties.get(lesParties.size()-1).getJoueurA() == lesParties.get(lesParties.size()-1).getJoueurCourant()) {
 							j = 1;
 						}
-						//lesStats.get(i).updateStats(1, j)
+						lesStats.get(i).updateStats(1, j, lesParties.get(lesParties.size()).getJoueurA().getNbPionsManges(), (lesParties.get(lesParties.size()-1).getTempsDeJeu()));
 					} else if (lesStats.get(i).getJoueur().getNom().equals(lesParties.get(lesParties.size()-1).getJoueurB().getNom())) {
 						nb++;
 
 						//Si vainqueur
 						int j = 0;
-						if (lesParties.get(lesParties.size()-1).getJoueurA() == lesParties.get(lesParties.size()-1).getJoueurCourant()) {
+						if (lesParties.get(lesParties.size()-1).getJoueurB() == lesParties.get(lesParties.size()-1).getJoueurCourant()) {
 							j = 1;
 						}
-						//lesStats.get(i).updateStats(1, j)
+						lesStats.get(i).updateStats(1, j, lesParties.get(lesParties.size()).getJoueurB().getNbPionsManges(), (lesParties.get(lesParties.size()-1).getTempsDeJeu()));
 					}
 				}
 			}
@@ -234,5 +234,31 @@ public class Lanceur{
  		} while (ret == null);
 
  		return ret;
+	}
+
+
+	/**
+	 * Retourne l'arrayList des parties
+	 * @return lesParties : l'arrayList des parties
+	 */
+	public static ArrayList<Partie> getLesParties(){
+	 	return lesParties;
+	}
+
+
+	/**
+ 	 * Retourne l'arrayList des joueurs
+	 * @return lesJoueurs : l'arrayList des joueurs
+	 */
+	public static ArrayList<Joueur> getLesJoueurs(){
+	 	return lesJoueurs;
+	}
+
+	/**
+ 	 * Retourne l'arrayList des joueurs
+	 * @return lesJoueurs : l'arrayList des joueurs
+	 */
+	public static ArrayList<Statistiques> geLestStats(){
+	 	return lesStats;
 	}
 }

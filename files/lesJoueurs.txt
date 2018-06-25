@@ -1,2 +1,0 @@
-../files/lesJoueurs/joueur.txt
-../files/lesJoueurs/IA.txt

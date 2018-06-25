@@ -17,15 +17,19 @@ public class Joueur implements java.io.Serializable {
 	/** Damier sur lequel peut agir le joueur */
 	private Pion[][] damier;
 
+	/** Le nombre de pions mangés pour le joueur */
+    private int nbPionsManges;
+
 
 	/**
-	 * Constructeur de la classe joueur qui initialise 
+	 * Constructeur de la classe joueur qui initialise
 	 * ses attributs pour créer un objet joueur
 	 * @param nom - le nom du joueur (ou pseudo)
 	 */
 	public Joueur(String nom){
 		if(nom != null && nom != ""){
 			this.nom = nom;
+			this.nbPionsManges = 0;
 		}
 		else{
 			System.out.println("Joueur(String nom) : Pas de nom attibué");
@@ -63,6 +67,15 @@ public class Joueur implements java.io.Serializable {
 	public Pion[][] getDamier(){
 		return this.damier;
 	}
+
+
+	/**
+	 * Accesseur du nombre de pions mangés par joueurA
+	 * @return Le nombre de pions mangés par joueurA
+	 */
+	public int getNbPionsManges(){
+		return this.nbPionsManges;
+	 }
 
 
 	/**
@@ -135,6 +148,7 @@ public class Joueur implements java.io.Serializable {
 				else{
 				//	System.out.println("passage dans manger");
 					if(this.manger(valPosAct,valPosDest) == 0){
+						this.nbPionsManges++;
 						codeRetour = 0;
 					}
 					else{
