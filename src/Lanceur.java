@@ -1,5 +1,6 @@
 package model;
 import controller.*;
+import view.*;
 import java.util.*;
 import java.io.*;
 /**
@@ -52,7 +53,7 @@ public class Lanceur{
 		}
 
 		if (graphique) {
-			//code de Lorenzo
+			DebutAnimation debut = new DebutAnimation();
 		} else {
 			console();
 		}

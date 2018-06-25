@@ -1,7 +1,7 @@
 package controller;
 import model.*;
 
-//import view.*;
+import view.*;
 
 /**
  * Classe de modélisation d'une partie
@@ -40,8 +40,6 @@ import model.*;
 
     /** Le score Maximale */
     private final int SCOREMAX = 12;
-
-    //private PlateauDeJeu plateau;
 
 
    /**
@@ -349,15 +347,4 @@ import model.*;
 
         return ret;
     }
-
-
-
-    /**
-     * Ajoute le plateau graphique
-     * @param p le plateau à add
-     *
-     *//*
-    public void setPlateau(PlateauDeJeu p){
-        this.plateau = p;
-    }*/
  }

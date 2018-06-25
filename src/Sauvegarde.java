@@ -6,23 +6,23 @@ import java.util.StringTokenizer;
 import java.io.*;
 
 /**
- * Classe servant à la sauvegarde des joueurs, des parties et des statistiques 
+ * Classe servant à la sauvegarde des joueurs, des parties et des statistiques
  * @author L. GERARDI
  * @author B. LAIGO
  * @author N. NGUYEN
  */
 public class Sauvegarde {
     /** Répertoire contenant les index (qui eux-même) contiennent les chemins menant aux fichiers de sauvegarde */
-    private static final String INDEX = "../files/";
+    private static final String INDEX = "../fichiers/sauvegardes/";
 
     /** Répertoire contenant les sauvegardes de joueurs */
-    private static final String CHEMINJOUEURS = "../files/lesJoueurs/";
+    private static final String CHEMINJOUEURS = INDEX + "lesJoueurs/";
 
     /** Répertoire contenant les sauvegardes de parties */
-    private static final String CHEMINPARTIES = "../files/lesParties/";
+    private static final String CHEMINPARTIES = INDEX + "lesParties/";
 
     /** Répertoire contenant les sauvegardes de statistiques */
-    private static final String CHEMINSTATS = "../files/lesStats/";
+    private static final String CHEMINSTATS = INDEX + "lesStats/";
 
 
     /**
