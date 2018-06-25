@@ -172,13 +172,15 @@ public class PlateauDeJeu{
     public void reveler(){
         if(this.partie.getDamier()[this.pos[0]][this.pos[1]] != null){
             if(this.partie.getDamier()[this.pos[0]][this.pos[1]].getJoueur() == this.partie.getJoueurCourant()){
-                if(this.partie.getDamier()[this.pos[0]][this.pos[1]].getJoueur() == this.partie.getJoueurA()){
-                    this.contenu.setIcon(new ImageIcon(this.cheminCouleur+"pionJ1"+this.partie.getDamier()[this.pos[0]][this.pos[1]].getContenu().getTaille()+".png"));
+                if (this.partie.getDamier()[this.pos[0]][this.pos[1]].getContenu() != null) {
+                    if(this.partie.getDamier()[this.pos[0]][this.pos[1]].getJoueur() == this.partie.getJoueurA()){
+                        this.contenu.setIcon(new ImageIcon(this.cheminCouleur+"pionJ1"+this.partie.getDamier()[this.pos[0]][this.pos[1]].getContenu().getTaille()+".png"));
+                    }
+                    else{
+                        this.contenu.setIcon(new ImageIcon(this.cheminCouleur+"pionJ2"+this.partie.getDamier()[this.pos[0]][this.pos[1]].getContenu().getTaille()+".png"));
+                    }
+                    this.rafraichir();
                 }
-                else{
-                    this.contenu.setIcon(new ImageIcon(this.cheminCouleur+"pionJ2"+this.partie.getDamier()[this.pos[0]][this.pos[1]].getContenu().getTaille()+".png"));
-                }
-                this.rafraichir();
             }
         }
     }
@@ -230,6 +232,4 @@ public class PlateauDeJeu{
     public void setPosNull(){
         this.pos = null;
     }
-
-
 }

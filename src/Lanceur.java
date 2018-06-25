@@ -121,57 +121,6 @@ public class Lanceur{
 		} else {
 			System.exit(0);
 		}
-
-		//si IA vs IA et partie finie, pas de sauvegarde (pas d'ajout aux statistiques)
-		if (lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA && lesParties.get(lesParties.size()-1).getJoueurB() instanceof IA && lesParties.get(lesParties.size()-1).getFinDuJeu()) {
-			lesParties.remove(lesParties.size()-1);
-
-		} else {
-			//Pas de sauvegarde des IA et pas de sauvegardes inutiles
-			if (!(lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA) && Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurA() + ", 2 sinon", 1, 2, 1).equals("1") && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
-				lesJoueurs.add(lesParties.get(lesParties.size()-1).getJoueurA());
-			}
-
-			//Pas de sauvegarde des IA et pas de sauvegardes inutiles
-			if (!(lesParties.get(lesParties.size()-1).getJoueurB() instanceof IA) && Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurB() + ", 2 sinon", 1, 2, 1).equals("1") && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
-				lesJoueurs.add(lesParties.get(lesParties.size()-1).getJoueurB());
-			}
-
-			//si partie pas finie, on demande si on veut supprimer la partie (pas d'ajout aux statistiques)
-			if (!lesParties.get(lesParties.size()-1).getFinDuJeu()) {
-				if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder, 2 sinon", 1, 2, 1).equals("2")) {
-					lesParties.remove(lesParties.size()-1);
-				}
-			} else {
-				int i = 0;
-				int nb = 0;
-				while (i < lesStats.size()  && nb < 2) {
-					if (lesStats.get(i).getJoueur().getNom().equals(lesParties.get(lesParties.size()-1).getJoueurA().getNom())) {
-						nb++;
-
-						//Si vainqueur
-						int j = 0;
-						if (lesParties.get(lesParties.size()-1).getJoueurA() == lesParties.get(lesParties.size()-1).getJoueurCourant()) {
-							j = 1;
-						}
-						lesStats.get(i).updateStats(1, j, lesParties.get(lesParties.size()).getJoueurA().getNbPionsManges(), (lesParties.get(lesParties.size()-1).getTempsDeJeu()));
-					} else if (lesStats.get(i).getJoueur().getNom().equals(lesParties.get(lesParties.size()-1).getJoueurB().getNom())) {
-						nb++;
-
-						//Si vainqueur
-						int j = 0;
-						if (lesParties.get(lesParties.size()-1).getJoueurB() == lesParties.get(lesParties.size()-1).getJoueurCourant()) {
-							j = 1;
-						}
-						lesStats.get(i).updateStats(1, j, lesParties.get(lesParties.size()).getJoueurB().getNbPionsManges(), (lesParties.get(lesParties.size()-1).getTempsDeJeu()));
-					}
-				}
-			}
-		}
-
-		Sauvegarde.sauveLesParties(lesParties);
-		Sauvegarde.sauveLesJoueurs(lesJoueurs);
-		Sauvegarde.sauveLesStats(lesStats);
     }
 
 
@@ -260,5 +209,79 @@ public class Lanceur{
 	 */
 	public static ArrayList<Statistiques> geLestStats(){
 	 	return lesStats;
+	}
+
+	/**
+	 * Sauvegarde tout
+	 */
+	public static void sauveTout() {
+		//si IA vs IA et partie finie, pas de sauvegarde (pas d'ajout aux statistiques)
+		if (lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA && lesParties.get(lesParties.size()-1).getJoueurB() instanceof IA && lesParties.get(lesParties.size()-1).getFinDuJeu()) {
+			lesParties.remove(lesParties.size()-1);
+
+		} else {
+			//Pas de sauvegarde des IA et pas de sauvegardes inutiles
+			if (!(lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA) && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
+				if (graphique) {
+
+				} else if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurA().getNom() + ", 2 sinon", 1, 2, 1).equals("1")) {
+					lesJoueurs.add(lesParties.get(lesParties.size()-1).getJoueurA());
+				}
+			}
+
+
+			//Pas de sauvegarde des IA et pas de sauvegardes inutiles
+			if (!(lesParties.get(lesParties.size()-1).getJoueurB() instanceof IA) && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
+				if (graphique) {
+
+				} else if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurB().getNom() + ", 2 sinon", 1, 2, 1).equals("1")) {
+					lesJoueurs.add(lesParties.get(lesParties.size()-1).getJoueurB());
+				}
+			}
+
+
+			//si partie pas finie, on demande si on veut supprimer la partie (pas d'ajout aux statistiques)
+			if (!lesParties.get(lesParties.size()-1).getFinDuJeu()) {
+				if (graphique) {
+
+				} else if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder, 2 sinon", 1, 2, 1).equals("2")) {
+					lesParties.remove(lesParties.size()-1);
+				}
+
+
+			} else {
+				int i = 0;
+				int nb = 0;
+				while (i < lesStats.size()  && nb < 2) {
+					if (!(lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA) && lesStats.get(i).getJoueur().getNom().equals(lesParties.get(lesParties.size()-1).getJoueurA().getNom())) {
+						nb++;
+
+						//Si vainqueur
+						int j = 0;
+						if (lesParties.get(lesParties.size()-1).getJoueurA() == lesParties.get(lesParties.size()-1).getJoueurCourant()) {
+							j = 1;
+						}
+
+						lesStats.get(i).updateStats(1, j, lesParties.get(lesParties.size()).getJoueurA().getNbPionsManges(), (lesParties.get(lesParties.size()-1).getTempsDeJeu()));
+
+					} else if (!(lesParties.get(lesParties.size()-1).getJoueurB() instanceof IA) && lesStats.get(i).getJoueur().getNom().equals(lesParties.get(lesParties.size()-1).getJoueurB().getNom())) {
+						nb++;
+
+						//Si vainqueur
+						int j = 0;
+						if (lesParties.get(lesParties.size()-1).getJoueurB() == lesParties.get(lesParties.size()-1).getJoueurCourant()) {
+							j = 1;
+						}
+
+						lesStats.get(i).updateStats(1, j, lesParties.get(lesParties.size()).getJoueurB().getNbPionsManges(), (lesParties.get(lesParties.size()-1).getTempsDeJeu()));
+
+					}
+				}
+			}
+		}
+
+		Sauvegarde.sauveLesParties(lesParties);
+		Sauvegarde.sauveLesJoueurs(lesJoueurs);
+		Sauvegarde.sauveLesStats(lesStats);
 	}
 }

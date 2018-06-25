@@ -36,7 +36,7 @@ import view.*;
     private Pion[][] damier;
 
     /** Le temps de jeu */
-    private double tempsDeJeu;
+    private long tempsDeJeu;
 
     /** Le score Maximale */
     private final int SCOREMAX = 12;
@@ -55,7 +55,7 @@ import view.*;
            this.joueurB = joueurB;
            this.scoreA = 0;
            this.scoreB = 0;
-           this.tempsDeJeu = 0;
+           this.tempsDeJeu = ((long) System.currentTimeMillis()/1000);
            this.tours = 1;
 
            this.damier = new Pion[8][7];
@@ -285,21 +285,18 @@ import view.*;
     	 */
     	public void jouer(ControleurGlobal c){
             Partie p = this;
-            PlateauDeJeu plateau;
 
-            javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    plateau = new PlateauDeJeu(p, c);
-                }
-            });
+            PlateauDeJeu plateau = new PlateauDeJeu(this, c);
 
             int[] posAct = new int[2];
             int[] posDest = new int[2];
             int tmp = -50;
 
-            plateau.rafraichir();
+            plateau.quitter();
 
              do {
+                 plateau = new PlateauDeJeu(this, c);
+
                 if (this.courant instanceof IA) {
                     int[][] tab = this.courant.auto();
                     posAct[0] = tab[0][0];
@@ -307,14 +304,28 @@ import view.*;
 
                     posDest[0] = tab[1][0];
                     posDest[1] = tab[1][1];
-
+System.out.println("IA posAct" + posAct[0] + " " + posAct[1] + " posDest" + posDest[0] + " " + posDest[1]);
                  } else {
                      do {
-                        posAct = plateau.getPos();
+                         try {
+                             Thread.sleep(2000);
+                         } catch (Exception e) {
+                             e.printStackTrace();
+                         }
+
+                         posAct = plateau.getPos();
+System.out.println("Boucle posAct");
                     } while (posAct == null);
 
                     do {
-                       posDest = plateau.getPos();
+                        try {
+                            Thread.sleep(2000);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        posDest = plateau.getPos();
+System.out.println("Boucle posAct");
                    } while (posDest == null && (posDest[0] == posAct[0] && posDest[1] == posAct[1]));
                 }
 
@@ -326,8 +337,6 @@ import view.*;
                 }
 
                 if (tmp == 0) {
-                    plateau.rafraichir();
-
                     if (this.courant == this.joueurA) {
                         this.courant = this.joueurB;
                     } else {
@@ -335,8 +344,11 @@ import view.*;
                         this.tours++;
                     }
                 }
+                plateau.rafraichir();
+                plateau.quitter();
 
-                    this.posFin();
+                this.posFin();
+                this.tempsDeJeu = ((long) System.currentTimeMillis()/1000) - this.tempsDeJeu;
             } while (!this.finDuJeu());
         }
 
@@ -360,7 +372,7 @@ import view.*;
      * @return Les joueurs et leur score, le joueur actuel, le damier et les pions cachés
      */
     public String toString(){
-      String ret = "Tours : " + this.tours + "\n" + this.joueurA.getNom() + " : " + this.scoreA + "\n" + this.joueurB.getNom() + " : "+this.scoreB + "\n  0    1    2    3    4    5    6    7    \n";
+      String ret = "Temps : " + this.afficherTemps() + "\nTours : " + this.tours + "\n" + this.joueurA.getNom() + " : " + this.scoreA + "\n" + this.joueurB.getNom() + " : "+this.scoreB + "\n  0    1    2    3    4    5    6    7    \n";
 
       for(int i = 0; i < this.damier[0].length; i++){
           for(int k = 0; k < this.damier.length; k++){
@@ -404,6 +416,22 @@ import view.*;
               }
           }
         }
+
+        return ret;
+    }
+
+    private String afficherTemps() {
+        //Heures
+        int tmp = (int) this.tempsDeJeu/60;
+        String ret = tmp + " : ";
+
+        //minutes
+        tmp = (int) tmp/60;
+        ret = ret + tmp  + " : ";
+
+        //Secondes
+        tmp = (int) tmp % 60;
+        ret = ret + tmp;
 
         return ret;
     }
