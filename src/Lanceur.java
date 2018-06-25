@@ -25,6 +25,7 @@ public class Lanceur{
 	public static void main(String[] args){
 		init();
 		menu();
+		sauveTout();
 	}
 
 	/**
@@ -47,7 +48,6 @@ public class Lanceur{
 	 * Permet de créer la partie, charger des joueurs, charger une partie
 	 */
 	public static void menu() {
-
 		if (Utilitaire.reponseUtilisateur("\nBienvenue dans le jeu Arcanor !\n Tapez '1' si vous voulez jouer en mode graphique, Tapez '2' sinon\n puis tapez Entree\n", 1, 2, 1).equals("1")) {
 			graphique = true;
 		}
@@ -214,7 +214,7 @@ public class Lanceur{
 	/**
 	 * Sauvegarde tout
 	 */
-	public static void sauveTout() {
+	public static void sauveTout(boolean a, boolean b, boolean c) {
 		//si IA vs IA et partie finie, pas de sauvegarde (pas d'ajout aux statistiques)
 		if (lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA && lesParties.get(lesParties.size()-1).getJoueurB() instanceof IA && lesParties.get(lesParties.size()-1).getFinDuJeu()) {
 			lesParties.remove(lesParties.size()-1);
@@ -222,7 +222,7 @@ public class Lanceur{
 		} else {
 			//Pas de sauvegarde des IA et pas de sauvegardes inutiles
 			if (!(lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA) && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
-				if (graphique) {
+				if (a) {
 
 				} else if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurA().getNom() + ", 2 sinon", 1, 2, 1).equals("1")) {
 					lesJoueurs.add(lesParties.get(lesParties.size()-1).getJoueurA());
@@ -232,7 +232,7 @@ public class Lanceur{
 
 			//Pas de sauvegarde des IA et pas de sauvegardes inutiles
 			if (!(lesParties.get(lesParties.size()-1).getJoueurB() instanceof IA) && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
-				if (graphique) {
+				if (b) {
 
 				} else if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurB().getNom() + ", 2 sinon", 1, 2, 1).equals("1")) {
 					lesJoueurs.add(lesParties.get(lesParties.size()-1).getJoueurB());
@@ -242,7 +242,7 @@ public class Lanceur{
 
 			//si partie pas finie, on demande si on veut supprimer la partie (pas d'ajout aux statistiques)
 			if (!lesParties.get(lesParties.size()-1).getFinDuJeu()) {
-				if (graphique) {
+				if (c) {
 
 				} else if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder, 2 sinon", 1, 2, 1).equals("2")) {
 					lesParties.remove(lesParties.size()-1);
