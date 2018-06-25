@@ -55,7 +55,7 @@ public class Lanceur{
 			DebutAnimation debut = new DebutAnimation();
 		} else {
 			console();
-			sauveTout();
+			sauveTout(false, false, false);
 		}
 	}
 
