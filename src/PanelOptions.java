@@ -114,13 +114,11 @@ public class PanelOptions{
     public void retour(){
         this.m.quitter();
         Menu m = new Menu(this.controleurGlobal);
-        System.out.println("retour");
     }
     /**
     * Quitte la fenêtre menu appelante
     */
     public void quitter(){
-        System.out.println("quitter");
         this.m.quitter();
     }
     /**
@@ -128,7 +126,6 @@ public class PanelOptions{
     * @param i : le choix du chemin
     */
     public void miseAjourSkins(int i){
-        System.out.println("miseAjourSkins");
         this.controleurGlobal.modifierCheminCouleur(i);
     }
 }

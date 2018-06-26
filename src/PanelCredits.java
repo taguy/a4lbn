@@ -27,24 +27,30 @@ public class PanelCredits{
 
         this.panelGlobal = new JPanel();
         this.panelGlobal.setLayout(new BorderLayout());
+        JPanel panelLigne0 = new JPanel();
+        panelLigne0.setLayout(new BoxLayout(panelLigne0, BoxLayout.PAGE_AXIS));
         JPanel panelLigne1 = new JPanel();
-        panelLigne1.setLayout(new BoxLayout(panelLigne1, BoxLayout.PAGE_AXIS));
+        panelLigne1.setLayout(new BoxLayout(panelLigne1, BoxLayout.LINE_AXIS));
+        JPanel panelLigne2 = new JPanel();
+        panelLigne2.setLayout(new BoxLayout(panelLigne2, BoxLayout.LINE_AXIS));
 
 
         this.logo = new JLabel(new ImageIcon(this.cheminLogo));
         this.quitter = new JButton("Quitter");
         this.retour = new JButton("Retour");
-        this.info = new JLabel("ddddddddddddddddddddd");
-
+        this.info = new JLabel("© Réalisé par GERARDI Lorenzo, LAIGO Brice et NGUYEN Nguyen");
         panelLigne1.add(this.info);
-        panelLigne1.add(Box.createHorizontalStrut(50));
-        panelLigne1.add(this.quitter);
-        panelLigne1.add(Box.createHorizontalStrut(70));
-        panelLigne1.add(this.retour);
+        panelLigne2.add(this.quitter);
+        panelLigne2.add(Box.createHorizontalStrut(50));
+        panelLigne2.add(this.retour);
+
+        panelLigne0.add(panelLigne1);
+        panelLigne0.add(Box.createVerticalStrut(25));
+        panelLigne0.add(panelLigne2);
 
 
         panelGlobal.add(this.logo ,BorderLayout.NORTH);
-        panelGlobal.add(panelLigne1, BorderLayout.CENTER);
+        panelGlobal.add(panelLigne0, BorderLayout.CENTER);
 
         this.quitter.addActionListener(new EcouteurCredits(this, 1));
         this.retour.addActionListener(new EcouteurCredits(this, 2));
@@ -63,13 +69,11 @@ public class PanelCredits{
     public void retour(){
         this.m.quitter();
         Menu m = new Menu(this.controleurGlobal);
-        System.out.println("retour");
     }
     /**
     * Quitte la fenêtre menu appelante
     */
     public void quitter(){
-        System.out.println("quitter");
         this.m.quitter();
     }
 }

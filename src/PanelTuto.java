@@ -96,13 +96,11 @@ public class PanelTuto{
     public void retour(){
         this.m.quitter();
         Menu m = new Menu(this.controleurGlobal);
-        System.out.println("retour");
     }
     /**
     * Quitte la fenêtre menu appelante
     */
     public void quitter(){
-        System.out.println("quitter");
         this.m.quitter();
     }
 }

@@ -205,10 +205,18 @@ public class Lanceur{
 
 	/**
  	 * Retourne l'arrayList des joueurs
-	 * @return lesJoueurs : l'arrayList des joueurs
+	 * @return LesStats : l'arrayList des joueurs
 	 */
-	public static ArrayList<Statistiques> geLestStats(){
+	public static ArrayList<Statistiques> getLesStats(){
 	 	return lesStats;
+	}
+
+	/**
+	 * Retourne le mode de visualisation
+	 * @return graphique : le mode de visualisation
+	 */
+	public static boolean getGraphique(){
+		return graphique;
 	}
 
 	/**
@@ -222,8 +230,10 @@ public class Lanceur{
 		} else {
 			//Pas de sauvegarde des IA et pas de sauvegardes inutiles
 			if (!(lesParties.get(lesParties.size()-1).getJoueurA() instanceof IA) && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
-				if (a) {
+				if (graphique) {
+					if (a) {
 
+					}
 				} else if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurA().getNom() + ", 2 sinon", 1, 2, 1).equals("1")) {
 					lesJoueurs.add(lesParties.get(lesParties.size()-1).getJoueurA());
 				}
@@ -232,8 +242,10 @@ public class Lanceur{
 
 			//Pas de sauvegarde des IA et pas de sauvegardes inutiles
 			if (!(lesParties.get(lesParties.size()-1).getJoueurB() instanceof IA) && !lesParties.get(lesParties.size()-1).getFinDuJeu()) {
-				if (b) {
+				if (graphique) {
+					if (b) {
 
+					}
 				} else if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder le joueur (et ses Statistiques)" + lesParties.get(lesParties.size()-1).getJoueurB().getNom() + ", 2 sinon", 1, 2, 1).equals("1")) {
 					lesJoueurs.add(lesParties.get(lesParties.size()-1).getJoueurB());
 				}
@@ -242,8 +254,10 @@ public class Lanceur{
 
 			//si partie pas finie, on demande si on veut supprimer la partie (pas d'ajout aux statistiques)
 			if (!lesParties.get(lesParties.size()-1).getFinDuJeu()) {
-				if (c) {
+				if (graphique) {
+					if (c) {
 
+					}
 				} else if (Utilitaire.reponseUtilisateur("Tapez 1 si vous voulez Sauvegarder, 2 sinon", 1, 2, 1).equals("2")) {
 					lesParties.remove(lesParties.size()-1);
 				}

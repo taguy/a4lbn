@@ -22,8 +22,11 @@ public class EcouteurSourisPlateau extends MouseAdapter{
     */
     public void mouseClicked(MouseEvent e){
         JLabel a = (JLabel)e.getSource();
-        this.p.pos(a.getName());
+        if(e.getButton() == 1){ //révèle le pion contenu si clic droit
+            this.p.posAct(a.getName());
+        }
         if(e.getButton() == 3){ //révèle le pion contenu si clic droit
+            this.p.posDest(a.getName());
             this.p.reveler();
         }
     }

@@ -91,20 +91,17 @@ public class PanelChargerPartie{
     public void retour(){
         this.m.quitter();
         Menu m = new Menu(this.controleurGlobal);
-        System.out.println("retour");
     }
     /**
     * Quitte la fenêtre menu appelante
     */
     public void quitter(){
-        System.out.println("quitter");
         this.m.quitter();
     }
     /**
     * Creer un plateau de jeu en fonction de l'interaction de l'utilisateur sur le JObjets
     */
     public void valider(){
-        System.out.println("valider");
         System.out.println("La partie choisie :  "+this.boxParties.getSelectedItem());
         for(Partie e : this.lesParties){
             if(this.boxParties.getSelectedItem() == e.getNom()){

@@ -143,89 +143,72 @@ public class PanelNouvellePartie{
         this.panelLigne4.add(this.nomJoueurB,2);
         this.m.rafraichir();
     }
+    /**
+    * Crée une partie en fonction des JTexField et JComboBox puis lance la partie
+    */
     public void valider(){
         boolean j1 = false;
         boolean j2 = false;
         PlateauDeJeu plateau = null;
         Joueur joueurA = null;
         Joueur joueurB = null;
-        System.out.println("valider");
+        Partie p = null;
         if(this.panelLigne4.getComponent(0) instanceof JTextField ){j1 = true;}
         if(this.panelLigne4.getComponent(2) instanceof JTextField ){j2 = true;}
         if(j1 && j2){
             joueurA = new Joueur(this.nomJoueurA.getText());
             joueurB = new Joueur(this.nomJoueurB.getText());
-            lesParties.add(new Partie(joueurA,joueurB,this.nomPartie.getText()));
-            lesJoueurs.add(joueurA);
-            lesJoueurs.add(joueurB);
-            System.out.println("Auncune IA p1");
+            p = new Partie(joueurA,joueurB,this.nomPartie.getText());
         }else if(!j1 && j2){
             if(this.boxJoueurA.getSelectedItem().equals("IA")){ // une ComboBox et une IA
                 joueurB = new Joueur(this.nomJoueurB.getText());
-                lesParties.add(new Partie(new IA("IA"),joueurB,this.nomPartie.getText()));
-                lesJoueurs.add(joueurB);
+                p = new Partie(new IA("IA"),joueurB,this.nomPartie.getText());
             }
             else{ //une ComboBox et pas d'IA
                 joueurB = new Joueur(this.nomJoueurB.getText());
-                lesParties.add(new Partie(this.lesJoueurs.get(this.boxJoueurA.getSelectedIndex()),joueurB,this.nomPartie.getText()));
-                lesJoueurs.add(joueurB);
+                p = new Partie(this.lesJoueurs.get(this.boxJoueurA.getSelectedIndex()),joueurB,this.nomPartie.getText());
             }
 
         }else if(j1 && !j2){
             if(this.boxJoueurB.getSelectedItem().equals("IA")){ // une ComboBox et une IA
                 joueurA = new Joueur(this.nomJoueurA.getText());
-                lesParties.add(new Partie(joueurA,new IA("IA"),this.nomPartie.getText()));
-                lesJoueurs.add(joueurA);
+                p = new Partie(joueurA,new IA("IA"),this.nomPartie.getText());
             }
             else{ //une ComboBox et pas d'IA
                 joueurA = new Joueur(this.nomJoueurA.getText());
-                lesParties.add(new Partie(new Joueur(this.nomJoueurA.getText()),this.lesJoueurs.get(this.boxJoueurB.getSelectedIndex()),this.nomPartie.getText()));
-                lesJoueurs.add(joueurA);
+                p = new Partie(new Joueur(this.nomJoueurA.getText()),this.lesJoueurs.get(this.boxJoueurB.getSelectedIndex()),this.nomPartie.getText());
             }
         }else{
             if((this.boxJoueurA.getSelectedItem().equals("IA"))&&(this.boxJoueurB.getSelectedItem().equals("IA"))){ // Deux ComboBox et deux IA
-                 lesParties.add(new Partie(new IA("IA1"),new IA("IA2"),this.nomPartie.getText()));
+                p = new Partie(new IA("IA1"),new IA("IA2"),this.nomPartie.getText());
             }
             else{
                 if(this.boxJoueurA.getSelectedItem().equals("IA")){ //une ComboBox et une IA
                     joueurB = new Joueur(this.nomJoueurB.getText());
-                    lesParties.add(new Partie(new IA("IA"),joueurB,this.nomPartie.getText()));
-                    lesJoueurs.add(joueurB);
+                    p = new Partie(new IA("IA"),joueurB,this.nomPartie.getText());
                 }
                 else if(this.boxJoueurB.getSelectedItem().equals("IA")){ //une ComboBox et une IA
                     joueurA = new Joueur(this.nomJoueurA.getText());
-                    lesParties.add(new Partie(joueurA,new IA("IA"),this.nomPartie.getText()));
-                    lesJoueurs.add(joueurA);
+                    p = new Partie(joueurA,new IA("IA"),this.nomPartie.getText());
                 }
-                else if((!(this.boxJoueurA.getSelectedItem().equals("IA"))) && !(this.boxJoueurB.getSelectedItem().equals("IA"))){ //Deux ComboBox et pas d'IA
-                    if(!(this.lesJoueurs.get(this.boxJoueurA.getSelectedIndex())).equals(this.lesJoueurs.get(this.boxJoueurB.getSelectedIndex()))){
-                        lesParties.add(new Partie(this.lesJoueurs.get(this.boxJoueurA.getSelectedIndex()),this.lesJoueurs.get(this.boxJoueurB.getSelectedIndex()),this.nomPartie.getText()));
-                    }
-                    else{
-                        JOptionPane erreur = new JOptionPane();
-                        erreur.showMessageDialog(null, "Message préventif", "Attention vous ne pouvez pas jouer contre vous même", JOptionPane.WARNING_MESSAGE);
-                    }
+                else if((this.boxJoueurA.getSelectedItem().equals("IA")) == false && (this.boxJoueurB.getSelectedItem().equals("IA")) == false){ //Deux ComboBox et pas d'IA
+                        p = new Partie(this.lesJoueurs.get(this.boxJoueurA.getSelectedIndex()),this.lesJoueurs.get(this.boxJoueurB.getSelectedIndex()),this.nomPartie.getText());
+
                 }
             }
         }
-
-        /*
-            try{
-                Thread.sleep(1000);
-            } catch (Exception e) {
-                    System.out.println(e);
-            }
-        */
-            //javax.swing.SwingUtilities.invokeLater(new Runnable() {
-                //public void run() {
-                    //PlateauDeJeu plateau = new PlateauDeJeu(lesParties.get(lesParties.size()-1), controleurGlobal);
-                //}
-            //});
+        if(!(p.getJoueurA().getNom().equals(p.getJoueurB().getNom()))){
+            lesParties.add(p);
+            plateau = new PlateauDeJeu(p, this.controleurGlobal);
             lesParties.get(lesParties.size()-1).getJoueurA().setDamier(lesParties.get(lesParties.size()-1).getDamier());
             lesParties.get(lesParties.size()-1).getJoueurB().setDamier(lesParties.get(lesParties.size()-1).getDamier());
-            lesParties.get(lesParties.size()-1).jouer(this.controleurGlobal);
-
-
+            lesParties.get(lesParties.size()-1).jouer(plateau,true);
+            this.quitter();
+        }
+        else{
+            JOptionPane erreur = new JOptionPane();
+            erreur.showMessageDialog(null, "Attention vous ne pouvez pas jouer contre vous même","Message préventif", JOptionPane.WARNING_MESSAGE);
+        }
     }
     /**
     * Creer un nouvelle objet Menu pour retourner en arriere
@@ -233,13 +216,11 @@ public class PanelNouvellePartie{
     public void retour(){
         this.m.quitter();
         Menu m = new Menu(this.controleurGlobal);
-        System.out.println("retour");
     }
     /**
     * Quitte la fenêtre menu appelante
     */
     public void quitter(){
-        System.out.println("quitter");
         this.m.quitter();
     }
 

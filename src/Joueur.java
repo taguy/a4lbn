@@ -1,5 +1,5 @@
 package controller;
-
+import view.*;
 import model.Utilitaire;
 /**
  * La classe joueur modelise un joueur
@@ -20,7 +20,9 @@ public class Joueur implements java.io.Serializable {
 	/** Le nombre de pions mangés pour le joueur */
     private int nbPionsManges;
 
+	private PlateauDeJeu plateau;
 
+	private Partie partie;
 	/**
 	 * Constructeur de la classe joueur qui initialise
 	 * ses attributs pour créer un objet joueur
@@ -101,9 +103,8 @@ public class Joueur implements java.io.Serializable {
 		 int posActY = valPosAct[1];
 		 int posDestX = valPosDest[0];
 		 int posDestY = valPosDest[1];
-		 int posDestZ = 1; //decapsuler ou glisser à choisir
-		int codeRetour = 0;
-
+		 int codeRetour = 0;
+		 int posDestZ = 0;
 		//		codeRetour = 0 : le déplacemment est réalisable
 		//		codeRetour = 1 : PosAct = posDest
 		//		codeRetour = 2 : le pion n'appartient pas au joueur
@@ -129,15 +130,15 @@ public class Joueur implements java.io.Serializable {
 
 		}
 
-		this.message(codeRetour);
+			this.message(codeRetour);
+
 		Pion dest = this.damier[posDestX][posDestY];
 		if(codeRetour == 0){
-			if((dest == null && this.damier[posActX][posActY].getContenu() !=  null) && !(this instanceof IA)){
+			if((dest == null && this.damier[posActX][posActY].getContenu() !=  null) && !(this instanceof IA) && !(ControleurGlobal.getGraphique())){
 
 				String message = "\nTapez '1' si vous liberer le contenu, Tapez '2' si vous voulez glisser\n puis tapez Entree\n";
 				posDestZ = Integer.parseInt(Utilitaire.reponseUtilisateur(message, 1, 2, 1));
 			}
-
 			if(liberer || posDestZ == 1){
 				//methode brice
 				if(dest == null){
@@ -169,6 +170,7 @@ public class Joueur implements java.io.Serializable {
 		}
 
 		this.message(codeRetour);
+
 
 		return codeRetour;
 	}
@@ -284,7 +286,7 @@ public class Joueur implements java.io.Serializable {
 
 
 	private void message (int codeRetour) {
-		if ((this instanceof IA)) {
+		if ((this instanceof IA) && !(ControleurGlobal.getGraphique())) {
 			if (codeRetour == 1) {
 				System.out.println("move() : La posAct est la même que la posDest <!>");
 			} else if (codeRetour == 2) {
@@ -301,7 +303,22 @@ public class Joueur implements java.io.Serializable {
 				System.out.println("Glissement impossible <!>");
 			}
 		}
-	}
+		else{
 
+		}
+	}
+	public void setPlateau(PlateauDeJeu p){
+		this.plateau = p;
+	}
+	public void setPartie(Partie p){
+		this.partie = p;
+	}
+	public void lanceJouer(){
+		if (this instanceof IA) {
+			if(this.partie != null && this.plateau != null){
+					this.partie.jouer(this.plateau, true);
+			}
+		}
+	}
 
 }

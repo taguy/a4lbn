@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class ControleurGlobal{
         ArrayList<Partie> lesParties;
         ArrayList<Joueur> lesJoueurs;
+        ArrayList<Statistiques> lesStats;
         ModelArcanor model;
         String cheminLogo;
         String cheminCouleur;
@@ -22,6 +23,7 @@ public class ControleurGlobal{
             this.model = new ModelArcanor();
             this.lesJoueurs = model.getLesJoueurs();
             this.lesParties = model.getLesParties();
+            this.lesStats = model.getLesStats();
             this.cheminLogo = model.getCheminLogo();
             this.cheminCouleur = model.getCheminCouleur();
             this.cheminAnimation = model.getCheminAnimation();
@@ -90,6 +92,20 @@ public class ControleurGlobal{
             return ret;
         }
         /**
+         * Retourne une arrayList de statistiques
+         * @return this.lesStats : la liste de stats
+         */
+        public  ArrayList<Statistiques>getLesStats(){
+            return this.lesStats;
+        }
+        /**
+         * Retourne le mode de visualisation
+         * @return ModelArcanor.getGraphique() : le mode de visualisation
+         */
+        public static boolean getGraphique(){
+            return ModelArcanor.getGraphique();
+        }
+        /**
         * Retourne la liste des noms des parties
         * @return ret : la liste des noms des parties (ArrayList)
         */
@@ -106,16 +122,13 @@ public class ControleurGlobal{
         */
         public void modifierCheminCouleur(int i){
             if(i == 0){
-                this.cheminCouleur = "../data/Pions/";
-                System.out.println("je suis al");
+                this.cheminCouleur = "../fichiers/ihm/Pions/";
             }
             if(i == 1){
-                this.cheminCouleur = "../data/skin1/";
-                System.out.println("je suis al2");
+                this.cheminCouleur = "../fichiers/ihm/skin1/";
             }
             if(i == 2){
-                this.cheminCouleur = "../data/skin2/";
-                System.out.println("je suis al3");
+                this.cheminCouleur = "../fichiers/ihm/skin2/";
             }
         }
 

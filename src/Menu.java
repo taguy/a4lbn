@@ -47,7 +47,7 @@ public class Menu{
         this.cheminLogo = controleurGlobal.getCheminLogo();
 
         this.frame = new JFrame();
-        this.frame.setTitle("Arca D nor");
+        this.frame.setTitle("Space Arcanor");
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setSize(600,350);
 
@@ -152,7 +152,6 @@ public class Menu{
         this.frame.add(this.panelCardLayout);
         this.frame.setLocationRelativeTo(null); //Centre la frame sur l'écran
         this.frame.setVisible(true);
-        this.jouerMusique(); //Ajout de la musique
 
         //Ajout des actions utilisateur
         this.chargerUnePartie.addActionListener(new EcouteurMenu(this,0));
@@ -162,15 +161,10 @@ public class Menu{
         this.tutoriel.addActionListener(new EcouteurMenu(this,4));
         this.credits.addActionListener(new EcouteurMenu(this,5));
      }
-    //Methodes externes
-    public void jouerMusique(){
-
-     }
     /**
     * Modifie la fenêtre par une fenêtre de création de partie
     */
     public void nouvellePartie(){
-         System.out.println("nouvelle Partie");
          this.frame.setSize(600,350);
          this.frame.setLocationRelativeTo(null);
          this.cl.show(this.panelCardLayout,this.listCard[1]);
@@ -179,7 +173,6 @@ public class Menu{
     * Modifie la fenêtre par une fenêtre de chargement de partie
     */
     public void chagerPartie(){
-        System.out.println("Charger une Partie");
         this.frame.setSize(600,350);
         this.frame.setLocationRelativeTo(null);
         this.cl.show(this.panelCardLayout,this.listCard[2]);
@@ -188,7 +181,6 @@ public class Menu{
     * Modifie la fenêtre par une fenêtre d'affichage de statistiques
     */
     public void statistiques(){
-        System.out.println("Statistiques");
         this.frame.setSize(600,350);
         this.frame.setLocationRelativeTo(null);
         this.cl.show(this.panelCardLayout,this.listCard[3]);
@@ -197,7 +189,6 @@ public class Menu{
     * Modifie la fenêtre par une fenêtre d'affichage des options
     */
     public void options(){
-        System.out.println("Options");
         this.frame.setSize(600,350);
         this.frame.setLocationRelativeTo(null);
         this.cl.show(this.panelCardLayout,this.listCard[4]);
@@ -206,7 +197,6 @@ public class Menu{
     * Modifie la fenêtre par une fenêtre d'affichage des tutoriels
     */
     public void tutoriel(){
-        System.out.println("Tutoriel");
         this.frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         //this.frame.setLocationRelativeTo(null);
         this.cl.show(this.panelCardLayout,this.listCard[5]);
@@ -215,7 +205,6 @@ public class Menu{
     * Modifie la fenêtre par une fenêtre d'affichage des crédits
     */
     public void credits(){
-        System.out.println("Crédits");
         this.frame.setSize(600,350);
         this.frame.setLocationRelativeTo(null);
         this.cl.show(this.panelCardLayout,this.listCard[6]);

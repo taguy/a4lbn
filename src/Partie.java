@@ -36,7 +36,7 @@ import view.*;
     private Pion[][] damier;
 
     /** Le temps de jeu */
-    private long tempsDeJeu;
+    private double tempsDeJeu;
 
     /** Le score Maximale */
     private final int SCOREMAX = 12;
@@ -55,7 +55,7 @@ import view.*;
            this.joueurB = joueurB;
            this.scoreA = 0;
            this.scoreB = 0;
-           this.tempsDeJeu = ((long) System.currentTimeMillis()/1000);
+           this.tempsDeJeu = 0;
            this.tours = 1;
 
            this.damier = new Pion[8][7];
@@ -195,9 +195,8 @@ import view.*;
     }
 
   /**
+  * verifie la position des pions et change la valeur de posFin en true si le pion est à la ligne adverse
   */
-
-
     public void posFin(){
         for(int i = 0; i <= 7; i++){
             if(this.damier[i][0] != null){
@@ -219,8 +218,103 @@ import view.*;
     }
 
 	/**
-	 * Joue un tour de jeu
+	 * Joue 4 tours de jeu pour le même joueur débogage IHM
 	 */
+    public void jouer(PlateauDeJeu p, boolean liberer){
+        if(this.joueurA instanceof IA){
+            this.joueurA.setPlateau(p);
+            this.joueurA.setPartie(this);
+        }
+        if(this.joueurB instanceof IA){
+            this.joueurB.setPlateau(p);
+            this.joueurB.setPartie(this);
+        }
+        int[] posAct = new int[2];
+        int[] posDest = new int[2];
+        int tmp;
+        if(!finDuJeu()){
+            if (this.courant instanceof IA) {
+
+                int[][] tab = this.courant.auto();
+                posAct[0] = tab[0][0];
+                posAct[1] = tab[0][1];
+                posDest[0] = tab[1][0];
+                posDest[1] = tab[1][1];
+                tmp = this.courant.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
+                this.posFin();
+                while(tmp != 0){
+                    tab = this.courant.auto();
+                    posAct[0] = tab[0][0];
+                    posAct[1] = tab[0][1];
+                    posDest[0] = tab[1][0];
+                    posDest[1] = tab[1][1];
+                    tmp = this.courant.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
+                    this.posFin();
+                }
+
+
+                if(tmp == 0){
+                    this.posFin();
+                    p.rafraichir();
+                    if (this.courant == this.joueurA) {
+                        this.courant = this.joueurB;
+                        this.tours++;
+                        this.posFin();
+                        p.miseAjourTours();
+                        p.miseAjourScoreA();
+                        p.miseAjourScoreB();
+                        p.rafraichir();
+                        this.courant.lanceJouer();
+                    } else {
+                        this.courant = this.joueurA;
+                        this.tours++;
+                        this.posFin();
+                        p.miseAjourTours();
+                        p.miseAjourScoreA();
+                        p.miseAjourScoreB();
+                        p.rafraichir();
+                        this.courant.lanceJouer();
+                    }
+                }
+                this.posFin();
+            }else{
+                if(p.getPosAct() != null && p.getPosDest() != null){
+                    posAct = p.getPosAct();
+                    posDest = p.getPosDest();
+                    tmp = this.courant.verifDeplacement(posAct, posDest, liberer);
+                    if(tmp == 0){
+                        p.rafraichir();
+                        if (this.courant == this.joueurA) {
+                            this.courant = this.joueurB;
+                            this.tours++;
+                            this.posFin();
+                            p.miseAjourTours();
+                            p.miseAjourScoreA();
+                            p.miseAjourScoreB();
+                            p.rafraichir();
+                            this.courant.lanceJouer();
+                        } else {
+                            this.courant = this.joueurA;
+                            this.tours++;
+                            this.posFin();
+                            p.miseAjourTours();
+                            p.miseAjourScoreA();
+                            p.miseAjourScoreB();
+                            p.rafraichir();
+                            this.courant.lanceJouer();
+                        }
+                    }
+                }
+            }
+        }
+        else{
+            p.affichageGagnant();
+        }
+
+    }
+    /**
+    *methodes jouer pour le terminal, joue la partie
+    */
 	public void jouer(){
         int[] posAct = new int[2];
         int[] posDest = new int[2];
@@ -228,6 +322,7 @@ import view.*;
 
 
          do {
+
             System.out.println (this.courant.getNom() + " Sensei a toi de jouer ! \ntapez 'exit' pour sortir");
 
             System.out.println(this);
@@ -251,6 +346,7 @@ import view.*;
 
             if (this.courant instanceof IA) {
                 tmp = this.courant.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
+                this.posFin();
             }else {
                 tmp = this.courant.verifDeplacement(posAct,posDest);
             }
@@ -280,79 +376,6 @@ import view.*;
 	  }
 
 
-        /**
-    	 * Joue un tour de jeu
-    	 */
-    	public void jouer(ControleurGlobal c){
-            Partie p = this;
-
-            PlateauDeJeu plateau = new PlateauDeJeu(this, c);
-
-            int[] posAct = new int[2];
-            int[] posDest = new int[2];
-            int tmp = -50;
-
-            plateau.quitter();
-
-             do {
-                 plateau = new PlateauDeJeu(this, c);
-
-                if (this.courant instanceof IA) {
-                    int[][] tab = this.courant.auto();
-                    posAct[0] = tab[0][0];
-                    posAct[1] = tab[0][1];
-
-                    posDest[0] = tab[1][0];
-                    posDest[1] = tab[1][1];
-System.out.println("IA posAct" + posAct[0] + " " + posAct[1] + " posDest" + posDest[0] + " " + posDest[1]);
-                 } else {
-                     do {
-                         try {
-                             Thread.sleep(2000);
-                         } catch (Exception e) {
-                             e.printStackTrace();
-                         }
-
-                         posAct = plateau.getPos();
-System.out.println("Boucle posAct");
-                    } while (posAct == null);
-
-                    do {
-                        try {
-                            Thread.sleep(2000);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        posDest = plateau.getPos();
-System.out.println("Boucle posAct");
-                   } while (posDest == null && (posDest[0] == posAct[0] && posDest[1] == posAct[1]));
-                }
-
-
-                if (this.courant instanceof IA) {
-                    tmp = this.courant.verifDeplacement(posAct,posDest, new java.util.Random().nextBoolean());
-                }else {
-                    tmp = this.courant.verifDeplacement(posAct,posDest);
-                }
-
-                if (tmp == 0) {
-                    if (this.courant == this.joueurA) {
-                        this.courant = this.joueurB;
-                    } else {
-                        this.courant = this.joueurA;
-                        this.tours++;
-                    }
-                }
-                plateau.rafraichir();
-                plateau.quitter();
-
-                this.posFin();
-                this.tempsDeJeu = ((long) System.currentTimeMillis()/1000) - this.tempsDeJeu;
-            } while (!this.finDuJeu());
-        }
-
-
 	/**
 	 * Rends vrai si la partie est finie, faux sinon
      * @return vrai si la partie est finie, faux sinon
@@ -372,7 +395,7 @@ System.out.println("Boucle posAct");
      * @return Les joueurs et leur score, le joueur actuel, le damier et les pions cachés
      */
     public String toString(){
-      String ret = "Temps : " + this.afficherTemps() + "\nTours : " + this.tours + "\n" + this.joueurA.getNom() + " : " + this.scoreA + "\n" + this.joueurB.getNom() + " : "+this.scoreB + "\n  0    1    2    3    4    5    6    7    \n";
+      String ret = "Tours : " + this.tours + "\n" + this.joueurA.getNom() + " : " + this.scoreA + "\n" + this.joueurB.getNom() + " : "+this.scoreB + "\n  0    1    2    3    4    5    6    7    \n";
 
       for(int i = 0; i < this.damier[0].length; i++){
           for(int k = 0; k < this.damier.length; k++){
@@ -416,22 +439,6 @@ System.out.println("Boucle posAct");
               }
           }
         }
-
-        return ret;
-    }
-
-    private String afficherTemps() {
-        //Heures
-        int tmp = (int) this.tempsDeJeu/60;
-        String ret = tmp + " : ";
-
-        //minutes
-        tmp = (int) tmp/60;
-        ret = ret + tmp  + " : ";
-
-        //Secondes
-        tmp = (int) tmp % 60;
-        ret = ret + tmp;
 
         return ret;
     }

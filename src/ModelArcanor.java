@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class ModelArcanor{
     ArrayList<Partie> lesParties;
     ArrayList<Joueur> lesJoueurs;
+    ArrayList<Statistiques> lesStats;
     String cheminCouleur = "../fichiers/ihm/Pions/";
     String cheminLogo = "../fichiers/ihm/logo12.png";
     String cheminAnimation = "../fichiers/ihm/Animation/";
@@ -19,6 +20,7 @@ public class ModelArcanor{
     public ModelArcanor(){
         this.lesParties = Lanceur.getLesParties();
         this.lesJoueurs = Lanceur.getLesJoueurs();
+        this.lesStats = Lanceur.getLesStats();
     }
 
     /**
@@ -69,6 +71,20 @@ public class ModelArcanor{
     */
     public String getCheminSkin(){
         return this.cheminSkin;
+    }
+    /**
+     * Retourne le mode de visualisation
+     * @return graphique : le mode de visualisation
+     */
+    public static boolean getGraphique(){
+        return model.Lanceur.getGraphique();
+    }
+    /**
+     * Retourne une arrayList de statistiques
+     * @return model.Lanceur.geLestStats() : la list de stats
+     */
+    public static ArrayList<Statistiques> getLesStats(){
+        return model.Lanceur.getLesStats();
     }
 
 }

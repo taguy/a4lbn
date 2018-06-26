@@ -1,5 +1,5 @@
-package model;
-import controller.*;
+package controller;
+import model.*;
 
 /**
  * Classe statistiques qui regroupe toutes les statistiques
